@@ -1,0 +1,27 @@
+{
+  "inputs": [
+    {
+      "inputFile": "./account-info-openapi.json",
+    },
+
+    {
+      "inputFile": "./event-notifications-openapi.json",
+    },
+	
+    {
+      "inputFile": "./payment-initiation-openapi.json",
+    },
+
+    {
+      "inputFile": "./confirmation-funds-openapi.json",
+    },
+    {
+      "inputFile": "./events-openapi.json",
+    },
+			
+    {
+      "inputFile": "./vrp-openapi.json",
+    },
+  ], 
+  "output": "./openbankingmerged.swagger.json"
+}
