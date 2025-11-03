@@ -8,4 +8,5 @@ The separate files were merged into a single one using `openapi-merge`
 
 ##### Code Gen
 Code was generated using `OpenApi Generator 7` for `kotling-spring` with the parameters `UseSpringBoot3` and `gradleBuildFile` set to `true`
+
 Post code generation build.gradle.kts was updated to support java21 and the latest springboot stable.
