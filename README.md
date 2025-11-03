@@ -3,6 +3,7 @@
 ##### OpenApi spec
 This code was generated using the `OpenBanking spec v4`
 > https://github.com/OpenBankingUK/read-write-api-specs/tree/master/dist/openapi
+
 The separate files were merged into a single one using `openapi-merge`
 > https://github.com/robertmassaioli/openapi-merge
 
