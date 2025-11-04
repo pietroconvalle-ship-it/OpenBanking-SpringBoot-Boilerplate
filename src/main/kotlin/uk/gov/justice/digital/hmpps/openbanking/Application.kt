@@ -9,5 +9,5 @@ import org.springframework.context.annotation.ComponentScan
 class Application
 
 fun main(args: Array<String>) {
-    runApplication<uk.gov.justice.digital.hmpps.openbanking.Application>(*args)
+    runApplication<Application>(*args)
 }
