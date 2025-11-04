@@ -1,0 +1,48 @@
+package uk.gov.justice.digital.hmpps.openbanking.model
+
+import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonValue
+import uk.gov.justice.digital.hmpps.openbanking.model.ExternalDocumentType1Code1
+import jakarta.validation.constraints.DecimalMax
+import jakarta.validation.constraints.DecimalMin
+import jakarta.validation.constraints.Email
+import jakarta.validation.constraints.Max
+import jakarta.validation.constraints.Min
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.Size
+import jakarta.validation.Valid
+import io.swagger.v3.oas.annotations.media.Schema
+
+/**
+ * Information supplied to enable the matching of an entry with the items that the transfer is intended to settle, such as commercial invoices in an accounts' receivable system.
+ * @param code 
+ * @param issuer 
+ * @param number 
+ * @param relatedDate All dates in the JSON payloads are represented in ISO 8601 date-time format.  All date-time fields in responses must include the timezone. An example is below: 2017-04-05T10:43:07+00:00
+ * @param lineDetails 
+ */
+data class OBVRPRemittanceInformation(
+
+    @field:Valid
+    @Schema(example = "null", description = "")
+    @get:JsonProperty("Code") val code: ExternalDocumentType1Code1? = null,
+
+    @get:Size(min=1,max=140)
+    @Schema(example = "null", description = "")
+    @get:JsonProperty("Issuer") val issuer: kotlin.String? = null,
+
+    @get:Size(min=1,max=140)
+    @Schema(example = "null", description = "")
+    @get:JsonProperty("Number") val number: kotlin.String? = null,
+
+    @Schema(example = "null", description = "All dates in the JSON payloads are represented in ISO 8601 date-time format.  All date-time fields in responses must include the timezone. An example is below: 2017-04-05T10:43:07+00:00")
+    @get:JsonProperty("RelatedDate") val relatedDate: java.time.OffsetDateTime? = null,
+
+    @Schema(example = "null", description = "")
+    @get:JsonProperty("LineDetails") val lineDetails: kotlin.collections.List<kotlin.String>? = null
+) {
+
+}
+
