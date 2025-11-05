@@ -1,7 +1,9 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -18,12 +20,21 @@ import io.swagger.v3.oas.annotations.media.Schema
 * For a full list of enumeration values refer to `ExternalDocumentFormat1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_internal_CodeSets)
 * Values: DPDF,DXML,SDSH,WORD,XSLT
 */
-enum class OBFileFormat(val value: kotlin.String) {
+enum class OBFileFormat(@get:JsonValue val value: kotlin.String) {
 
-    @JsonProperty("DPDF") DPDF("DPDF"),
-    @JsonProperty("DXML") DXML("DXML"),
-    @JsonProperty("SDSH") SDSH("SDSH"),
-    @JsonProperty("WORD") WORD("WORD"),
-    @JsonProperty("XSLT") XSLT("XSLT")
+    DPDF("DPDF"),
+    DXML("DXML"),
+    SDSH("SDSH"),
+    WORD("WORD"),
+    XSLT("XSLT");
+
+    companion object {
+        @JvmStatic
+        @JsonCreator
+        fun forValue(value: kotlin.String): OBFileFormat {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBFileFormat'")
+        }
+    }
 }
 

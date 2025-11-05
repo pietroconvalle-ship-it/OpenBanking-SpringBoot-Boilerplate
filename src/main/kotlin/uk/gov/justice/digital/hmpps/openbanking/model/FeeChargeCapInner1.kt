@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OtherFeeTypeInner
@@ -56,37 +58,64 @@ data class FeeChargeCapInner1(
     * Fee/charge type which is being capped
     * Values: ServiceCAccountFee,ServiceCAccountFeeMonthly,ServiceCOther,Other
     */
-    enum class FeeType(val value: kotlin.String) {
+    enum class FeeType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("ServiceCAccountFee") ServiceCAccountFee("ServiceCAccountFee"),
-        @JsonProperty("ServiceCAccountFeeMonthly") ServiceCAccountFeeMonthly("ServiceCAccountFeeMonthly"),
-        @JsonProperty("ServiceCOther") ServiceCOther("ServiceCOther"),
-        @JsonProperty("Other") Other("Other")
+        ServiceCAccountFee("ServiceCAccountFee"),
+        ServiceCAccountFeeMonthly("ServiceCAccountFeeMonthly"),
+        ServiceCOther("ServiceCOther"),
+        Other("Other");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): FeeType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'FeeChargeCapInner1'")
+            }
+        }
     }
 
     /**
     * Indicates that this is the minimum/ maximum fee/charge that can be applied by the financial institution
     * Values: Minimum,Maximum
     */
-    enum class MinMaxType(val value: kotlin.String) {
+    enum class MinMaxType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Minimum") Minimum("Minimum"),
-        @JsonProperty("Maximum") Maximum("Maximum")
+        Minimum("Minimum"),
+        Maximum("Maximum");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): MinMaxType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'FeeChargeCapInner1'")
+            }
+        }
     }
 
     /**
     * Period e.g. day, week, month etc. for which the fee/charge is capped
     * Values: AcademicTerm,Day,Half_Year,Month,Quarter,Week,Year
     */
-    enum class CappingPeriod(val value: kotlin.String) {
+    enum class CappingPeriod(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("AcademicTerm") AcademicTerm("AcademicTerm"),
-        @JsonProperty("Day") Day("Day"),
-        @JsonProperty("Half Year") Half_Year("Half Year"),
-        @JsonProperty("Month") Month("Month"),
-        @JsonProperty("Quarter") Quarter("Quarter"),
-        @JsonProperty("Week") Week("Week"),
-        @JsonProperty("Year") Year("Year")
+        AcademicTerm("AcademicTerm"),
+        Day("Day"),
+        Half_Year("Half Year"),
+        Month("Month"),
+        Quarter("Quarter"),
+        Week("Week"),
+        Year("Year");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): CappingPeriod {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'FeeChargeCapInner1'")
+            }
+        }
     }
 
 }

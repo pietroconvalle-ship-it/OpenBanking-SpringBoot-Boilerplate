@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBFundsConfirmationConsentResponse1DataDebtorAccount
@@ -57,13 +59,22 @@ data class OBFundsConfirmationConsentResponse1Data(
     * Specifies the status of consent resource in code form. For a full list of values refer to `OBInternalConsentStatus1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
     * Values: AWAU,RJCT,AUTH,CANC,EXPD
     */
-    enum class Status(val value: kotlin.String) {
+    enum class Status(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("AWAU") AWAU("AWAU"),
-        @JsonProperty("RJCT") RJCT("RJCT"),
-        @JsonProperty("AUTH") AUTH("AUTH"),
-        @JsonProperty("CANC") CANC("CANC"),
-        @JsonProperty("EXPD") EXPD("EXPD")
+        AWAU("AWAU"),
+        RJCT("RJCT"),
+        AUTH("AUTH"),
+        CANC("CANC"),
+        EXPD("EXPD");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): Status {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBFundsConfirmationConsentResponse1Data'")
+            }
+        }
     }
 
 }

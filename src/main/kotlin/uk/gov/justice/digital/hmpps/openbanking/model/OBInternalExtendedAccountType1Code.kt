@@ -1,7 +1,9 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -18,22 +20,31 @@ import io.swagger.v3.oas.annotations.media.Schema
 * Specifies the extended type of account.
 * Values: Business,BusinessSavingsAccount,Charity,Collection,Corporate,Ewallet,Government,Investment,ISA,JointPersonal,Pension,Personal,PersonalSavingsAccount,Premier,Wealth
 */
-enum class OBInternalExtendedAccountType1Code(val value: kotlin.String) {
+enum class OBInternalExtendedAccountType1Code(@get:JsonValue val value: kotlin.String) {
 
-    @JsonProperty("Business") Business("Business"),
-    @JsonProperty("BusinessSavingsAccount") BusinessSavingsAccount("BusinessSavingsAccount"),
-    @JsonProperty("Charity") Charity("Charity"),
-    @JsonProperty("Collection") Collection("Collection"),
-    @JsonProperty("Corporate") Corporate("Corporate"),
-    @JsonProperty("Ewallet") Ewallet("Ewallet"),
-    @JsonProperty("Government") Government("Government"),
-    @JsonProperty("Investment") Investment("Investment"),
-    @JsonProperty("ISA") ISA("ISA"),
-    @JsonProperty("JointPersonal") JointPersonal("JointPersonal"),
-    @JsonProperty("Pension") Pension("Pension"),
-    @JsonProperty("Personal") Personal("Personal"),
-    @JsonProperty("PersonalSavingsAccount") PersonalSavingsAccount("PersonalSavingsAccount"),
-    @JsonProperty("Premier") Premier("Premier"),
-    @JsonProperty("Wealth") Wealth("Wealth")
+    Business("Business"),
+    BusinessSavingsAccount("BusinessSavingsAccount"),
+    Charity("Charity"),
+    Collection("Collection"),
+    Corporate("Corporate"),
+    Ewallet("Ewallet"),
+    Government("Government"),
+    Investment("Investment"),
+    ISA("ISA"),
+    JointPersonal("JointPersonal"),
+    Pension("Pension"),
+    Personal("Personal"),
+    PersonalSavingsAccount("PersonalSavingsAccount"),
+    Premier("Premier"),
+    Wealth("Wealth");
+
+    companion object {
+        @JvmStatic
+        @JsonCreator
+        fun forValue(value: kotlin.String): OBInternalExtendedAccountType1Code {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBInternalExtendedAccountType1Code'")
+        }
+    }
 }
 

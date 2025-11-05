@@ -1,5 +1,6 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
 import uk.gov.justice.digital.hmpps.openbanking.model.OBEventLink1
@@ -17,9 +18,9 @@ import io.swagger.v3.oas.annotations.media.Schema
 /**
  * The resource-update event.
  * @param subjectType Subject type for the updated resource. 
- * @param httpColonOpenbankingOrgUkRid Resource Id for the updated resource.
- * @param httpColonOpenbankingOrgUkRty Resource Type for the updated resource.
- * @param httpColonOpenbankingOrgUkRlk Resource links to other available versions of the resource.
+ * @param httpOpenbankingOrgUkRid Resource Id for the updated resource.
+ * @param httpOpenbankingOrgUkRty Resource Type for the updated resource.
+ * @param httpOpenbankingOrgUkRlk Resource links to other available versions of the resource.
  */
 data class OBEventSubject1(
 
@@ -29,16 +30,16 @@ data class OBEventSubject1(
 
     @get:Size(min=1,max=128)
     @Schema(example = "null", required = true, description = "Resource Id for the updated resource.")
-    @get:JsonProperty("http://openbanking.org.uk/rid", required = true) val httpColonOpenbankingOrgUkRid: kotlin.String,
+    @get:JsonProperty("http://openbanking.org.uk/rid", required = true) val httpOpenbankingOrgUkRid: kotlin.String,
 
     @get:Size(min=1,max=128)
     @Schema(example = "null", required = true, description = "Resource Type for the updated resource.")
-    @get:JsonProperty("http://openbanking.org.uk/rty", required = true) val httpColonOpenbankingOrgUkRty: kotlin.String,
+    @get:JsonProperty("http://openbanking.org.uk/rty", required = true) val httpOpenbankingOrgUkRty: kotlin.String,
 
     @field:Valid
     @get:Size(min=1)
     @Schema(example = "null", required = true, description = "Resource links to other available versions of the resource.")
-    @get:JsonProperty("http://openbanking.org.uk/rlk", required = true) val httpColonOpenbankingOrgUkRlk: kotlin.collections.List<OBEventLink1>
+    @get:JsonProperty("http://openbanking.org.uk/rlk", required = true) val httpOpenbankingOrgUkRlk: kotlin.collections.List<OBEventLink1>
 ) {
 
 }

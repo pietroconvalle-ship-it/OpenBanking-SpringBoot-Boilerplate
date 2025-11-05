@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import jakarta.validation.constraints.DecimalMax
@@ -32,10 +34,19 @@ data class OBPAFundsAvailableResult1(
     * Availability result, clearly indicating the availability of funds given the Amount in the request.
     * Values: Available,NotAvailable
     */
-    enum class FundsAvailable(val value: kotlin.String) {
+    enum class FundsAvailable(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Available") Available("Available"),
-        @JsonProperty("NotAvailable") NotAvailable("NotAvailable")
+        Available("Available"),
+        NotAvailable("NotAvailable");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): FundsAvailable {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBPAFundsAvailableResult1'")
+            }
+        }
     }
 
 }

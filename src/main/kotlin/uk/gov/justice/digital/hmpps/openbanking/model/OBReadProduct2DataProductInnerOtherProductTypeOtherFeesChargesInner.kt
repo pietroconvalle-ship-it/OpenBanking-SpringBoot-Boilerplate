@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBReadProduct2DataProductInnerOtherProductTypeOtherFeesChargesInnerFeeChargeDetailInner
@@ -52,11 +54,20 @@ data class OBReadProduct2DataProductInnerOtherProductTypeOtherFeesChargesInner(
     * TariffType which defines the fee and charges.
     * Values: TTEL,TTMX,TTOT
     */
-    enum class TariffType(val value: kotlin.String) {
+    enum class TariffType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("TTEL") TTEL("TTEL"),
-        @JsonProperty("TTMX") TTMX("TTMX"),
-        @JsonProperty("TTOT") TTOT("TTOT")
+        TTEL("TTEL"),
+        TTMX("TTMX"),
+        TTOT("TTOT");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): TariffType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeOtherFeesChargesInner'")
+            }
+        }
     }
 
 }

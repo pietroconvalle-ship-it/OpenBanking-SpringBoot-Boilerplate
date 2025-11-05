@@ -1,7 +1,9 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -18,16 +20,25 @@ import io.swagger.v3.oas.annotations.media.Schema
 * Fee/Charge Type
 * Values: FEPF,FTOT,FYAF,FYAM,FYAQ,FYCP,FYDB,FYMI,FYXX
 */
-enum class OBFeeType1Code(val value: kotlin.String) {
+enum class OBFeeType1Code(@get:JsonValue val value: kotlin.String) {
 
-    @JsonProperty("FEPF") FEPF("FEPF"),
-    @JsonProperty("FTOT") FTOT("FTOT"),
-    @JsonProperty("FYAF") FYAF("FYAF"),
-    @JsonProperty("FYAM") FYAM("FYAM"),
-    @JsonProperty("FYAQ") FYAQ("FYAQ"),
-    @JsonProperty("FYCP") FYCP("FYCP"),
-    @JsonProperty("FYDB") FYDB("FYDB"),
-    @JsonProperty("FYMI") FYMI("FYMI"),
-    @JsonProperty("FYXX") FYXX("FYXX")
+    FEPF("FEPF"),
+    FTOT("FTOT"),
+    FYAF("FYAF"),
+    FYAM("FYAM"),
+    FYAQ("FYAQ"),
+    FYCP("FYCP"),
+    FYDB("FYDB"),
+    FYMI("FYMI"),
+    FYXX("FYXX");
+
+    companion object {
+        @JvmStatic
+        @JsonCreator
+        fun forValue(value: kotlin.String): OBFeeType1Code {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBFeeType1Code'")
+        }
+    }
 }
 

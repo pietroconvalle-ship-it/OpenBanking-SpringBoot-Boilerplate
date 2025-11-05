@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OtherApplicationFrequency
@@ -91,63 +93,108 @@ data class TierBandInner(
     * How often is interest applied to the BCA for this tier/band i.e. how often the financial institution pays accumulated interest to the customer's BCA.
     * Values: Daily,HalfYearly,Monthly,Other,Quarterly,PerStatementDate,Weekly,Yearly
     */
-    enum class ApplicationFrequency(val value: kotlin.String) {
+    enum class ApplicationFrequency(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Daily") Daily("Daily"),
-        @JsonProperty("HalfYearly") HalfYearly("HalfYearly"),
-        @JsonProperty("Monthly") Monthly("Monthly"),
-        @JsonProperty("Other") Other("Other"),
-        @JsonProperty("Quarterly") Quarterly("Quarterly"),
-        @JsonProperty("PerStatementDate") PerStatementDate("PerStatementDate"),
-        @JsonProperty("Weekly") Weekly("Weekly"),
-        @JsonProperty("Yearly") Yearly("Yearly")
+        Daily("Daily"),
+        HalfYearly("HalfYearly"),
+        Monthly("Monthly"),
+        Other("Other"),
+        Quarterly("Quarterly"),
+        PerStatementDate("PerStatementDate"),
+        Weekly("Weekly"),
+        Yearly("Yearly");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): ApplicationFrequency {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandInner'")
+            }
+        }
     }
 
     /**
     * Type of interest rate, Fixed or Variable
     * Values: Fixed,Variable
     */
-    enum class FixedVariableInterestRateType(val value: kotlin.String) {
+    enum class FixedVariableInterestRateType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Fixed") Fixed("Fixed"),
-        @JsonProperty("Variable") Variable("Variable")
+        Fixed("Fixed"),
+        Variable("Variable");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): FixedVariableInterestRateType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandInner'")
+            }
+        }
     }
 
     /**
     * How often is credit interest calculated for the account.
     * Values: Daily,HalfYearly,Monthly,Other,Quarterly,PerStatementDate,Weekly,Yearly
     */
-    enum class CalculationFrequency(val value: kotlin.String) {
+    enum class CalculationFrequency(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Daily") Daily("Daily"),
-        @JsonProperty("HalfYearly") HalfYearly("HalfYearly"),
-        @JsonProperty("Monthly") Monthly("Monthly"),
-        @JsonProperty("Other") Other("Other"),
-        @JsonProperty("Quarterly") Quarterly("Quarterly"),
-        @JsonProperty("PerStatementDate") PerStatementDate("PerStatementDate"),
-        @JsonProperty("Weekly") Weekly("Weekly"),
-        @JsonProperty("Yearly") Yearly("Yearly")
+        Daily("Daily"),
+        HalfYearly("HalfYearly"),
+        Monthly("Monthly"),
+        Other("Other"),
+        Quarterly("Quarterly"),
+        PerStatementDate("PerStatementDate"),
+        Weekly("Weekly"),
+        Yearly("Yearly");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): CalculationFrequency {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandInner'")
+            }
+        }
     }
 
     /**
     * Amount on which Interest applied.
     * Values: Banded,Tiered,Whole
     */
-    enum class DepositInterestAppliedCoverage(val value: kotlin.String) {
+    enum class DepositInterestAppliedCoverage(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Banded") Banded("Banded"),
-        @JsonProperty("Tiered") Tiered("Tiered"),
-        @JsonProperty("Whole") Whole("Whole")
+        Banded("Banded"),
+        Tiered("Tiered"),
+        Whole("Whole");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): DepositInterestAppliedCoverage {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandInner'")
+            }
+        }
     }
 
     /**
     * Interest rate types, other than AER, which financial institutions may use to describe the annual interest rate payable to the BCA.
     * Values: Gross,Other
     */
-    enum class BankInterestRateType(val value: kotlin.String) {
+    enum class BankInterestRateType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Gross") Gross("Gross"),
-        @JsonProperty("Other") Other("Other")
+        Gross("Gross"),
+        Other("Other");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): BankInterestRateType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandInner'")
+            }
+        }
     }
 
 }

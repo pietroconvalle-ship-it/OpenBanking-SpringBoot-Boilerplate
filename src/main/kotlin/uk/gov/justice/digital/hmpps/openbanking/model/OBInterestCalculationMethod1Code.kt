@@ -1,7 +1,9 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -18,10 +20,19 @@ import io.swagger.v3.oas.annotations.media.Schema
 * Methods of calculating interest
 * Values: ITCO,ITOT,ITSI
 */
-enum class OBInterestCalculationMethod1Code(val value: kotlin.String) {
+enum class OBInterestCalculationMethod1Code(@get:JsonValue val value: kotlin.String) {
 
-    @JsonProperty("ITCO") ITCO("ITCO"),
-    @JsonProperty("ITOT") ITOT("ITOT"),
-    @JsonProperty("ITSI") ITSI("ITSI")
+    ITCO("ITCO"),
+    ITOT("ITOT"),
+    ITSI("ITSI");
+
+    companion object {
+        @JvmStatic
+        @JsonCreator
+        fun forValue(value: kotlin.String): OBInterestCalculationMethod1Code {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBInterestCalculationMethod1Code'")
+        }
+    }
 }
 

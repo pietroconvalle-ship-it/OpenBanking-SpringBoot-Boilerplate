@@ -1,7 +1,9 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -18,9 +20,18 @@ import io.swagger.v3.oas.annotations.media.Schema
 * Specifies the Beneficiary Type.
 * Values: Trusted,Ordinary
 */
-enum class OBInternalBeneficiaryType1Code(val value: kotlin.String) {
+enum class OBInternalBeneficiaryType1Code(@get:JsonValue val value: kotlin.String) {
 
-    @JsonProperty("Trusted") Trusted("Trusted"),
-    @JsonProperty("Ordinary") Ordinary("Ordinary")
+    Trusted("Trusted"),
+    Ordinary("Ordinary");
+
+    companion object {
+        @JvmStatic
+        @JsonCreator
+        fun forValue(value: kotlin.String): OBInternalBeneficiaryType1Code {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBInternalBeneficiaryType1Code'")
+        }
+    }
 }
 

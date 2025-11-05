@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OtherFeeTypeInner
@@ -56,44 +58,71 @@ data class OverdraftFeeChargeCapInner(
     * Fee/charge type which is being capped
     * Values: ArrangedOverdraft,AnnualReview,EmergencyBorrowing,BorrowingItem,OverdraftRenewal,OverdraftSetup,Surcharge,TempOverdraft,UnauthorisedBorrowing,UnauthorisedPaidTrans,Other,UnauthorisedUnpaidTrans
     */
-    enum class FeeType(val value: kotlin.String) {
+    enum class FeeType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("ArrangedOverdraft") ArrangedOverdraft("ArrangedOverdraft"),
-        @JsonProperty("AnnualReview") AnnualReview("AnnualReview"),
-        @JsonProperty("EmergencyBorrowing") EmergencyBorrowing("EmergencyBorrowing"),
-        @JsonProperty("BorrowingItem") BorrowingItem("BorrowingItem"),
-        @JsonProperty("OverdraftRenewal") OverdraftRenewal("OverdraftRenewal"),
-        @JsonProperty("OverdraftSetup") OverdraftSetup("OverdraftSetup"),
-        @JsonProperty("Surcharge") Surcharge("Surcharge"),
-        @JsonProperty("TempOverdraft") TempOverdraft("TempOverdraft"),
-        @JsonProperty("UnauthorisedBorrowing") UnauthorisedBorrowing("UnauthorisedBorrowing"),
-        @JsonProperty("UnauthorisedPaidTrans") UnauthorisedPaidTrans("UnauthorisedPaidTrans"),
-        @JsonProperty("Other") Other("Other"),
-        @JsonProperty("UnauthorisedUnpaidTrans") UnauthorisedUnpaidTrans("UnauthorisedUnpaidTrans")
+        ArrangedOverdraft("ArrangedOverdraft"),
+        AnnualReview("AnnualReview"),
+        EmergencyBorrowing("EmergencyBorrowing"),
+        BorrowingItem("BorrowingItem"),
+        OverdraftRenewal("OverdraftRenewal"),
+        OverdraftSetup("OverdraftSetup"),
+        Surcharge("Surcharge"),
+        TempOverdraft("TempOverdraft"),
+        UnauthorisedBorrowing("UnauthorisedBorrowing"),
+        UnauthorisedPaidTrans("UnauthorisedPaidTrans"),
+        Other("Other"),
+        UnauthorisedUnpaidTrans("UnauthorisedUnpaidTrans");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): FeeType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OverdraftFeeChargeCapInner'")
+            }
+        }
     }
 
     /**
     * Min Max type
     * Values: Minimum,Maximum
     */
-    enum class MinMaxType(val value: kotlin.String) {
+    enum class MinMaxType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Minimum") Minimum("Minimum"),
-        @JsonProperty("Maximum") Maximum("Maximum")
+        Minimum("Minimum"),
+        Maximum("Maximum");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): MinMaxType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OverdraftFeeChargeCapInner'")
+            }
+        }
     }
 
     /**
     * Period e.g. day, week, month etc. for which the fee/charge is capped
     * Values: Day,Half_Year,Month,Quarter,Week,Year
     */
-    enum class CappingPeriod(val value: kotlin.String) {
+    enum class CappingPeriod(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Day") Day("Day"),
-        @JsonProperty("Half Year") Half_Year("Half Year"),
-        @JsonProperty("Month") Month("Month"),
-        @JsonProperty("Quarter") Quarter("Quarter"),
-        @JsonProperty("Week") Week("Week"),
-        @JsonProperty("Year") Year("Year")
+        Day("Day"),
+        Half_Year("Half Year"),
+        Month("Month"),
+        Quarter("Quarter"),
+        Week("Week"),
+        Year("Year");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): CappingPeriod {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OverdraftFeeChargeCapInner'")
+            }
+        }
     }
 
 }

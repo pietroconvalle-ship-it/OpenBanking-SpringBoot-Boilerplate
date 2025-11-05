@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OtherApplicationFrequency
@@ -91,66 +93,111 @@ data class TierBandInner1(
     * How often is interest applied to the PCA for this tier/band i.e. how often the financial institution pays accumulated interest to the customer's PCA.
     * Values: PerAcademicTerm,Daily,HalfYearly,Monthly,Other,Quarterly,PerStatementDate,Weekly,Yearly
     */
-    enum class ApplicationFrequency(val value: kotlin.String) {
+    enum class ApplicationFrequency(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("PerAcademicTerm") PerAcademicTerm("PerAcademicTerm"),
-        @JsonProperty("Daily") Daily("Daily"),
-        @JsonProperty("HalfYearly") HalfYearly("HalfYearly"),
-        @JsonProperty("Monthly") Monthly("Monthly"),
-        @JsonProperty("Other") Other("Other"),
-        @JsonProperty("Quarterly") Quarterly("Quarterly"),
-        @JsonProperty("PerStatementDate") PerStatementDate("PerStatementDate"),
-        @JsonProperty("Weekly") Weekly("Weekly"),
-        @JsonProperty("Yearly") Yearly("Yearly")
+        PerAcademicTerm("PerAcademicTerm"),
+        Daily("Daily"),
+        HalfYearly("HalfYearly"),
+        Monthly("Monthly"),
+        Other("Other"),
+        Quarterly("Quarterly"),
+        PerStatementDate("PerStatementDate"),
+        Weekly("Weekly"),
+        Yearly("Yearly");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): ApplicationFrequency {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandInner1'")
+            }
+        }
     }
 
     /**
     * Type of interest rate, Fixed or Variable
     * Values: Fixed,Variable
     */
-    enum class FixedVariableInterestRateType(val value: kotlin.String) {
+    enum class FixedVariableInterestRateType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Fixed") Fixed("Fixed"),
-        @JsonProperty("Variable") Variable("Variable")
+        Fixed("Fixed"),
+        Variable("Variable");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): FixedVariableInterestRateType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandInner1'")
+            }
+        }
     }
 
     /**
     * How often is credit interest calculated for the account.
     * Values: PerAcademicTerm,Daily,HalfYearly,Monthly,Other,Quarterly,PerStatementDate,Weekly,Yearly
     */
-    enum class CalculationFrequency(val value: kotlin.String) {
+    enum class CalculationFrequency(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("PerAcademicTerm") PerAcademicTerm("PerAcademicTerm"),
-        @JsonProperty("Daily") Daily("Daily"),
-        @JsonProperty("HalfYearly") HalfYearly("HalfYearly"),
-        @JsonProperty("Monthly") Monthly("Monthly"),
-        @JsonProperty("Other") Other("Other"),
-        @JsonProperty("Quarterly") Quarterly("Quarterly"),
-        @JsonProperty("PerStatementDate") PerStatementDate("PerStatementDate"),
-        @JsonProperty("Weekly") Weekly("Weekly"),
-        @JsonProperty("Yearly") Yearly("Yearly")
+        PerAcademicTerm("PerAcademicTerm"),
+        Daily("Daily"),
+        HalfYearly("HalfYearly"),
+        Monthly("Monthly"),
+        Other("Other"),
+        Quarterly("Quarterly"),
+        PerStatementDate("PerStatementDate"),
+        Weekly("Weekly"),
+        Yearly("Yearly");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): CalculationFrequency {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandInner1'")
+            }
+        }
     }
 
     /**
     * Amount on which Interest applied.
     * Values: Tiered,Whole
     */
-    enum class DepositInterestAppliedCoverage(val value: kotlin.String) {
+    enum class DepositInterestAppliedCoverage(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Tiered") Tiered("Tiered"),
-        @JsonProperty("Whole") Whole("Whole")
+        Tiered("Tiered"),
+        Whole("Whole");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): DepositInterestAppliedCoverage {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandInner1'")
+            }
+        }
     }
 
     /**
     * Interest rate types, other than AER, which financial institutions may use to describe the annual interest rate payable to the PCA.
     * Values: LinkedBaseRate,Gross,Net,Other
     */
-    enum class BankInterestRateType(val value: kotlin.String) {
+    enum class BankInterestRateType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("LinkedBaseRate") LinkedBaseRate("LinkedBaseRate"),
-        @JsonProperty("Gross") Gross("Gross"),
-        @JsonProperty("Net") Net("Net"),
-        @JsonProperty("Other") Other("Other")
+        LinkedBaseRate("LinkedBaseRate"),
+        Gross("Gross"),
+        Net("Net"),
+        Other("Other");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): BankInterestRateType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandInner1'")
+            }
+        }
     }
 
 }

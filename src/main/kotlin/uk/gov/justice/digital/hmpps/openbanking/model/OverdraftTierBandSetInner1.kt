@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OverdraftFeesChargesInner3
@@ -63,22 +65,40 @@ data class OverdraftTierBandSetInner1(
     * The methodology of how overdraft is charged. It can be: 'Whole'  Where the same charge/rate is applied to the entirety of the overdraft balance (where charges are applicable).  'Tiered' Where different charges/rates are applied dependent on overdraft maximum and minimum balance amount tiers defined by the lending financial organisation 'Banded' Where different charges/rates are applied dependent on overdraft maximum and minimum balance amount bands defined by a government organisation.
     * Values: Tiered,Whole,Banded
     */
-    enum class TierBandMethod(val value: kotlin.String) {
+    enum class TierBandMethod(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Tiered") Tiered("Tiered"),
-        @JsonProperty("Whole") Whole("Whole"),
-        @JsonProperty("Banded") Banded("Banded")
+        Tiered("Tiered"),
+        Whole("Whole"),
+        Banded("Banded");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): TierBandMethod {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OverdraftTierBandSetInner1'")
+            }
+        }
     }
 
     /**
     * An overdraft can either be 'committed' which means that the facility cannot be withdrawn without reasonable notification before it's agreed end date, or 'on demand' which means that the financial institution can demand repayment at any point in time.
     * Values: Committed,OnDemand,Other
     */
-    enum class OverdraftType(val value: kotlin.String) {
+    enum class OverdraftType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Committed") Committed("Committed"),
-        @JsonProperty("OnDemand") OnDemand("OnDemand"),
-        @JsonProperty("Other") Other("Other")
+        Committed("Committed"),
+        OnDemand("OnDemand"),
+        Other("Other");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): OverdraftType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OverdraftTierBandSetInner1'")
+            }
+        }
     }
 
 }

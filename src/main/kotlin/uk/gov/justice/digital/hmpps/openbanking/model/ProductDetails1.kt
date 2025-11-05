@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import jakarta.validation.constraints.DecimalMax
@@ -37,22 +39,31 @@ data class ProductDetails1(
     * Market segmentation is a marketing term referring to the aggregating of prospective buyers into groups, or segments, that have common needs and respond similarly to a marketing action. Market segmentation enables companies to target different categories of consumers who perceive the full value of certain products and services differently from one another. Read more: Market Segmentation http://www.investopedia.com/terms/m/marketsegmentation.asp#ixzz4gfEEalTd  With respect to PCA products, they are segmented in relation to different markets that they wish to focus on. 
     * Values: Basic,BenefitAndReward,CreditInterest,Cashback,General,Graduate,Other,Overdraft,Packaged,Premium,Reward,Student,YoungAdult,Youth
     */
-    enum class Segment(val value: kotlin.String) {
+    enum class Segment(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Basic") Basic("Basic"),
-        @JsonProperty("BenefitAndReward") BenefitAndReward("BenefitAndReward"),
-        @JsonProperty("CreditInterest") CreditInterest("CreditInterest"),
-        @JsonProperty("Cashback") Cashback("Cashback"),
-        @JsonProperty("General") General("General"),
-        @JsonProperty("Graduate") Graduate("Graduate"),
-        @JsonProperty("Other") Other("Other"),
-        @JsonProperty("Overdraft") Overdraft("Overdraft"),
-        @JsonProperty("Packaged") Packaged("Packaged"),
-        @JsonProperty("Premium") Premium("Premium"),
-        @JsonProperty("Reward") Reward("Reward"),
-        @JsonProperty("Student") Student("Student"),
-        @JsonProperty("YoungAdult") YoungAdult("YoungAdult"),
-        @JsonProperty("Youth") Youth("Youth")
+        Basic("Basic"),
+        BenefitAndReward("BenefitAndReward"),
+        CreditInterest("CreditInterest"),
+        Cashback("Cashback"),
+        General("General"),
+        Graduate("Graduate"),
+        Other("Other"),
+        Overdraft("Overdraft"),
+        Packaged("Packaged"),
+        Premium("Premium"),
+        Reward("Reward"),
+        Student("Student"),
+        YoungAdult("YoungAdult"),
+        Youth("Youth");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): Segment {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'ProductDetails1'")
+            }
+        }
     }
 
 }

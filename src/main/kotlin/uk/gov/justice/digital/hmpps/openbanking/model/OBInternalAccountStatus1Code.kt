@@ -1,7 +1,9 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -18,12 +20,21 @@ import io.swagger.v3.oas.annotations.media.Schema
 * Specifies the status of account resource in code form. <br /> For a full list of enumeration values refer to `OBInternalAccountStatus1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
 * Values: Deleted,Disabled,Enabled,Pending,ProForma
 */
-enum class OBInternalAccountStatus1Code(val value: kotlin.String) {
+enum class OBInternalAccountStatus1Code(@get:JsonValue val value: kotlin.String) {
 
-    @JsonProperty("Deleted") Deleted("Deleted"),
-    @JsonProperty("Disabled") Disabled("Disabled"),
-    @JsonProperty("Enabled") Enabled("Enabled"),
-    @JsonProperty("Pending") Pending("Pending"),
-    @JsonProperty("ProForma") ProForma("ProForma")
+    Deleted("Deleted"),
+    Disabled("Disabled"),
+    Enabled("Enabled"),
+    Pending("Pending"),
+    ProForma("ProForma");
+
+    companion object {
+        @JvmStatic
+        @JsonCreator
+        fun forValue(value: kotlin.String): OBInternalAccountStatus1Code {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBInternalAccountStatus1Code'")
+        }
+    }
 }
 

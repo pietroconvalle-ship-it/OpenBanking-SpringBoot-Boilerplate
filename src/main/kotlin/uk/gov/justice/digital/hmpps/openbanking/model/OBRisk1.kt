@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.ExternalCategoryPurpose1Code1
@@ -70,14 +72,23 @@ data class OBRisk1(
     * Specifies the payment context, `OBInternalPaymentContext1Code` 
     * Values: BillingGoodsAndServicesInAdvance,BillingGoodsAndServicesInArrears,EcommerceMerchantInitiatedPayment,FaceToFacePointOfSale,TransferToSelf,TransferToThirdParty
     */
-    enum class PaymentContextCode(val value: kotlin.String) {
+    enum class PaymentContextCode(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("BillingGoodsAndServicesInAdvance") BillingGoodsAndServicesInAdvance("BillingGoodsAndServicesInAdvance"),
-        @JsonProperty("BillingGoodsAndServicesInArrears") BillingGoodsAndServicesInArrears("BillingGoodsAndServicesInArrears"),
-        @JsonProperty("EcommerceMerchantInitiatedPayment") EcommerceMerchantInitiatedPayment("EcommerceMerchantInitiatedPayment"),
-        @JsonProperty("FaceToFacePointOfSale") FaceToFacePointOfSale("FaceToFacePointOfSale"),
-        @JsonProperty("TransferToSelf") TransferToSelf("TransferToSelf"),
-        @JsonProperty("TransferToThirdParty") TransferToThirdParty("TransferToThirdParty")
+        BillingGoodsAndServicesInAdvance("BillingGoodsAndServicesInAdvance"),
+        BillingGoodsAndServicesInArrears("BillingGoodsAndServicesInArrears"),
+        EcommerceMerchantInitiatedPayment("EcommerceMerchantInitiatedPayment"),
+        FaceToFacePointOfSale("FaceToFacePointOfSale"),
+        TransferToSelf("TransferToSelf"),
+        TransferToThirdParty("TransferToThirdParty");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): PaymentContextCode {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBRisk1'")
+            }
+        }
     }
 
 }

@@ -1,7 +1,9 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -18,9 +20,18 @@ import io.swagger.v3.oas.annotations.media.Schema
 * Indicates interaction type, currently if customer is present or not present. If not provided the default is `OffSession` (customer is not present) when the individual VRP payment is made. 
 * Values: InSession,OffSession
 */
-enum class OBVRPInteractionTypes(val value: kotlin.String) {
+enum class OBVRPInteractionTypes(@get:JsonValue val value: kotlin.String) {
 
-    @JsonProperty("InSession") InSession("InSession"),
-    @JsonProperty("OffSession") OffSession("OffSession")
+    InSession("InSession"),
+    OffSession("OffSession");
+
+    companion object {
+        @JvmStatic
+        @JsonCreator
+        fun forValue(value: kotlin.String): OBVRPInteractionTypes {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBVRPInteractionTypes'")
+        }
+    }
 }
 

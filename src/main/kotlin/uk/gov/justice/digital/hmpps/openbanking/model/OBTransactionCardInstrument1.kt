@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import jakarta.validation.constraints.DecimalMax
@@ -42,25 +44,43 @@ data class OBTransactionCardInstrument1(
     * Name of the card scheme. <br /> For a full list of enumeration values refer to `OBInternalCardSchemeType1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
     * Values: AmericanExpress,Diners,Discover,MasterCard,VISA
     */
-    enum class CardSchemeName(val value: kotlin.String) {
+    enum class CardSchemeName(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("AmericanExpress") AmericanExpress("AmericanExpress"),
-        @JsonProperty("Diners") Diners("Diners"),
-        @JsonProperty("Discover") Discover("Discover"),
-        @JsonProperty("MasterCard") MasterCard("MasterCard"),
-        @JsonProperty("VISA") VISA("VISA")
+        AmericanExpress("AmericanExpress"),
+        Diners("Diners"),
+        Discover("Discover"),
+        MasterCard("MasterCard"),
+        VISA("VISA");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): CardSchemeName {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBTransactionCardInstrument1'")
+            }
+        }
     }
 
     /**
     * The card authorisation type. <br /> For a full list of enumeration values refer to `OBInternalCardAuthorisationType1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
     * Values: ConsumerDevice,Contactless,None,PIN
     */
-    enum class AuthorisationType(val value: kotlin.String) {
+    enum class AuthorisationType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("ConsumerDevice") ConsumerDevice("ConsumerDevice"),
-        @JsonProperty("Contactless") Contactless("Contactless"),
-        @JsonProperty("None") None("None"),
-        @JsonProperty("PIN") PIN("PIN")
+        ConsumerDevice("ConsumerDevice"),
+        Contactless("Contactless"),
+        None("None"),
+        PIN("PIN");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): AuthorisationType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBTransactionCardInstrument1'")
+            }
+        }
     }
 
 }

@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import jakarta.validation.constraints.DecimalMax
@@ -38,25 +40,43 @@ data class OBSCASupportData1(
     * This field allows a PISP to request specific SCA Exemption for a Payment Initiation. For a full list of values reefer to `OBInternalSCAExemptionType1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
     * Values: BillPayment,ContactlessTravel,EcommerceGoods,EcommerceServices,Kiosk,Parking,PartyToParty
     */
-    enum class RequestedSCAExemptionType(val value: kotlin.String) {
+    enum class RequestedSCAExemptionType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("BillPayment") BillPayment("BillPayment"),
-        @JsonProperty("ContactlessTravel") ContactlessTravel("ContactlessTravel"),
-        @JsonProperty("EcommerceGoods") EcommerceGoods("EcommerceGoods"),
-        @JsonProperty("EcommerceServices") EcommerceServices("EcommerceServices"),
-        @JsonProperty("Kiosk") Kiosk("Kiosk"),
-        @JsonProperty("Parking") Parking("Parking"),
-        @JsonProperty("PartyToParty") PartyToParty("PartyToParty")
+        BillPayment("BillPayment"),
+        ContactlessTravel("ContactlessTravel"),
+        EcommerceGoods("EcommerceGoods"),
+        EcommerceServices("EcommerceServices"),
+        Kiosk("Kiosk"),
+        Parking("Parking"),
+        PartyToParty("PartyToParty");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): RequestedSCAExemptionType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBSCASupportData1'")
+            }
+        }
     }
 
     /**
     * Specifies a character string with a maximum length of 40 characters. Usage: This field indicates whether the PSU was subject to SCA performed by the TPP For a full list of values refer to `OBInternalAppliedAuthenticationApproach1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
     * Values: CA,SCA
     */
-    enum class AppliedAuthenticationApproach(val value: kotlin.String) {
+    enum class AppliedAuthenticationApproach(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("CA") CA("CA"),
-        @JsonProperty("SCA") SCA("SCA")
+        CA("CA"),
+        SCA("SCA");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): AppliedAuthenticationApproach {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBSCASupportData1'")
+            }
+        }
     }
 
 }

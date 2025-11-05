@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OverdraftFeesChargesInner
@@ -79,25 +81,43 @@ data class OverdraftTierBandInner(
     * Specifies the period of a fixed length overdraft agreement
     * Values: Day,Half_Year,Month,Quarter,Week,Year
     */
-    enum class AgreementPeriod(val value: kotlin.String) {
+    enum class AgreementPeriod(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Day") Day("Day"),
-        @JsonProperty("Half Year") Half_Year("Half Year"),
-        @JsonProperty("Month") Month("Month"),
-        @JsonProperty("Quarter") Quarter("Quarter"),
-        @JsonProperty("Week") Week("Week"),
-        @JsonProperty("Year") Year("Year")
+        Day("Day"),
+        Half_Year("Half Year"),
+        Month("Month"),
+        Quarter("Quarter"),
+        Week("Week"),
+        Year("Year");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): AgreementPeriod {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OverdraftTierBandInner'")
+            }
+        }
     }
 
     /**
     * Refers to which interest rate is applied when interests are tiered. For example, if an overdraft balance is £2k and the interest tiers are:- 0-£500 0.1%, 500-1000 0.2%, 1000-10000 0.5%, then the applicable interest rate could either be 0.5% of the entire balance (since the account balance sits in the top interest tier) or (0.1%*500)+(0.2%*500)+(0.5%*1000). In the 1st situation, we say the interest is applied to the ‘Whole’ of the account balance,  and in the 2nd that it is ‘Tiered’.
     * Values: Banded,Tiered,Whole
     */
-    enum class OverdraftInterestChargingCoverage(val value: kotlin.String) {
+    enum class OverdraftInterestChargingCoverage(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Banded") Banded("Banded"),
-        @JsonProperty("Tiered") Tiered("Tiered"),
-        @JsonProperty("Whole") Whole("Whole")
+        Banded("Banded"),
+        Tiered("Tiered"),
+        Whole("Whole");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): OverdraftInterestChargingCoverage {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OverdraftTierBandInner'")
+            }
+        }
     }
 
 }

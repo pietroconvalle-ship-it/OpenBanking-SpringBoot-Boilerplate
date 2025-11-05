@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import jakarta.validation.constraints.DecimalMax
@@ -44,10 +46,19 @@ data class OtherFeeType1(
     * Categorisation of fees and charges into standard categories.
     * Values: Other,Servicing
     */
-    enum class FeeCategory(val value: kotlin.String) {
+    enum class FeeCategory(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Other") Other("Other"),
-        @JsonProperty("Servicing") Servicing("Servicing")
+        Other("Other"),
+        Servicing("Servicing");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): FeeCategory {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OtherFeeType1'")
+            }
+        }
     }
 
 }

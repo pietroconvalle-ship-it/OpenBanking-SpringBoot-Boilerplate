@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBInterestFixedVariableType1Code
@@ -91,44 +93,71 @@ data class OBReadProduct2DataProductInnerOtherProductTypeLoanInterestLoanInteres
     * The unit of period (days, weeks, months etc.) of the Minimum Term
     * Values: PACT,PDAY,PHYR,PMTH,PQTR,PWEK,PYER
     */
-    enum class MinTermPeriod(val value: kotlin.String) {
+    enum class MinTermPeriod(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("PACT") PACT("PACT"),
-        @JsonProperty("PDAY") PDAY("PDAY"),
-        @JsonProperty("PHYR") PHYR("PHYR"),
-        @JsonProperty("PMTH") PMTH("PMTH"),
-        @JsonProperty("PQTR") PQTR("PQTR"),
-        @JsonProperty("PWEK") PWEK("PWEK"),
-        @JsonProperty("PYER") PYER("PYER")
+        PACT("PACT"),
+        PDAY("PDAY"),
+        PHYR("PHYR"),
+        PMTH("PMTH"),
+        PQTR("PQTR"),
+        PWEK("PWEK"),
+        PYER("PYER");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): MinTermPeriod {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeLoanInterestLoanInterestTierBandSetInnerLoanInterestTierBandInner'")
+            }
+        }
     }
 
     /**
     * The unit of period (days, weeks, months etc.) of the Maximum Term
     * Values: PACT,PDAY,PHYR,PMTH,PQTR,PWEK,PYER
     */
-    enum class MaxTermPeriod(val value: kotlin.String) {
+    enum class MaxTermPeriod(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("PACT") PACT("PACT"),
-        @JsonProperty("PDAY") PDAY("PDAY"),
-        @JsonProperty("PHYR") PHYR("PHYR"),
-        @JsonProperty("PMTH") PMTH("PMTH"),
-        @JsonProperty("PQTR") PQTR("PQTR"),
-        @JsonProperty("PWEK") PWEK("PWEK"),
-        @JsonProperty("PYER") PYER("PYER")
+        PACT("PACT"),
+        PDAY("PDAY"),
+        PHYR("PHYR"),
+        PMTH("PMTH"),
+        PQTR("PQTR"),
+        PWEK("PWEK"),
+        PYER("PYER");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): MaxTermPeriod {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeLoanInterestLoanInterestTierBandSetInnerLoanInterestTierBandInner'")
+            }
+        }
     }
 
     /**
     * Interest rate types, other than APR, which financial institutions may use to describe the annual interest rate payable for the SME Loan.
     * Values: INBB,INFR,INGR,INLR,INNE,INOT
     */
-    enum class LoanProviderInterestRateType(val value: kotlin.String) {
+    enum class LoanProviderInterestRateType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("INBB") INBB("INBB"),
-        @JsonProperty("INFR") INFR("INFR"),
-        @JsonProperty("INGR") INGR("INGR"),
-        @JsonProperty("INLR") INLR("INLR"),
-        @JsonProperty("INNE") INNE("INNE"),
-        @JsonProperty("INOT") INOT("INOT")
+        INBB("INBB"),
+        INFR("INFR"),
+        INGR("INGR"),
+        INLR("INLR"),
+        INNE("INNE"),
+        INOT("INOT");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): LoanProviderInterestRateType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeLoanInterestLoanInterestTierBandSetInnerLoanInterestTierBandInner'")
+            }
+        }
     }
 
 }

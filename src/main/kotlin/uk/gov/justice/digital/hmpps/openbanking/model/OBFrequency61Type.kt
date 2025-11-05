@@ -1,5 +1,6 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import uk.gov.justice.digital.hmpps.openbanking.model.OBFrequency6Code1
 import jakarta.validation.constraints.DecimalMax

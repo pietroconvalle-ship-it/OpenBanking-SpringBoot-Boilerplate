@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBReadProduct2DataProductInnerOtherProductTypeOverdraftOverdraftTierBandSetInnerOverdraftTierBandInnerOverdraftFeesChargesInner
@@ -74,26 +76,44 @@ data class OBReadProduct2DataProductInnerOtherProductTypeOverdraftOverdraftTierB
     * Specifies the period of a fixed length overdraft agreement
     * Values: PACT,PDAY,PHYR,PMTH,PQTR,PWEK,PYER
     */
-    enum class AgreementPeriod(val value: kotlin.String) {
+    enum class AgreementPeriod(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("PACT") PACT("PACT"),
-        @JsonProperty("PDAY") PDAY("PDAY"),
-        @JsonProperty("PHYR") PHYR("PHYR"),
-        @JsonProperty("PMTH") PMTH("PMTH"),
-        @JsonProperty("PQTR") PQTR("PQTR"),
-        @JsonProperty("PWEK") PWEK("PWEK"),
-        @JsonProperty("PYER") PYER("PYER")
+        PACT("PACT"),
+        PDAY("PDAY"),
+        PHYR("PHYR"),
+        PMTH("PMTH"),
+        PQTR("PQTR"),
+        PWEK("PWEK"),
+        PYER("PYER");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): AgreementPeriod {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeOverdraftOverdraftTierBandSetInnerOverdraftTierBandInner'")
+            }
+        }
     }
 
     /**
     * Refers to which interest rate is applied when interests are tiered. For example, if an overdraft balance is  2k and the interest tiers are:- 0- 500 0.1%, 500-1000 0.2%, 1000-10000 0.5%, then the applicable interest rate could either be 0.5% of the entire balance (since the account balance sits in the top interest tier) or (0.1%*500)+(0.2%*500)+(0.5%*1000). In the 1st situation, we say the interest is applied to the  Whole  of the account balance,  and in the 2nd that it is  Tiered .
     * Values: INBA,INTI,INWH
     */
-    enum class OverdraftInterestChargingCoverage(val value: kotlin.String) {
+    enum class OverdraftInterestChargingCoverage(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("INBA") INBA("INBA"),
-        @JsonProperty("INTI") INTI("INTI"),
-        @JsonProperty("INWH") INWH("INWH")
+        INBA("INBA"),
+        INTI("INTI"),
+        INWH("INWH");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): OverdraftInterestChargingCoverage {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeOverdraftOverdraftTierBandSetInnerOverdraftTierBandInner'")
+            }
+        }
     }
 
 }

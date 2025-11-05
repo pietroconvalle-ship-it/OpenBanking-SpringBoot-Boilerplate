@@ -38,6 +38,7 @@ src/main/kotlin/uk/gov/justice/digital/hmpps/openbanking/api/ScheduledPaymentsAp
 src/main/kotlin/uk/gov/justice/digital/hmpps/openbanking/api/StandingOrdersApiController.kt
 src/main/kotlin/uk/gov/justice/digital/hmpps/openbanking/api/StatementsApiController.kt
 src/main/kotlin/uk/gov/justice/digital/hmpps/openbanking/api/TransactionsApiController.kt
+src/main/kotlin/uk/gov/justice/digital/hmpps/openbanking/config/EnumConverterConfiguration.kt
 src/main/kotlin/uk/gov/justice/digital/hmpps/openbanking/model/CreditInterest.kt
 src/main/kotlin/uk/gov/justice/digital/hmpps/openbanking/model/CreditInterest1.kt
 src/main/kotlin/uk/gov/justice/digital/hmpps/openbanking/model/ExternalCategoryPurpose1Code.kt
@@ -117,7 +118,6 @@ src/main/kotlin/uk/gov/justice/digital/hmpps/openbanking/model/OBDomesticVRPCons
 src/main/kotlin/uk/gov/justice/digital/hmpps/openbanking/model/OBDomesticVRPConsentRequestData.kt
 src/main/kotlin/uk/gov/justice/digital/hmpps/openbanking/model/OBDomesticVRPConsentResponse.kt
 src/main/kotlin/uk/gov/justice/digital/hmpps/openbanking/model/OBDomesticVRPConsentResponseData.kt
-src/main/kotlin/uk/gov/justice/digital/hmpps/openbanking/model/OBDomesticVRPConsentResponseDataDebtorAccount.kt
 src/main/kotlin/uk/gov/justice/digital/hmpps/openbanking/model/OBDomesticVRPControlParameters.kt
 src/main/kotlin/uk/gov/justice/digital/hmpps/openbanking/model/OBDomesticVRPControlParametersPeriodicLimitsInner.kt
 src/main/kotlin/uk/gov/justice/digital/hmpps/openbanking/model/OBDomesticVRPDetails.kt
