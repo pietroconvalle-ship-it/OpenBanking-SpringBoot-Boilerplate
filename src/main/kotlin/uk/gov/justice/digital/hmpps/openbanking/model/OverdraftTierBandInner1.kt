@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OverdraftFeesChargesInner2
@@ -67,10 +69,19 @@ data class OverdraftTierBandInner1(
     * Interest charged on whole amount or tiered/banded
     * Values: Tiered,Whole
     */
-    enum class OverdraftInterestChargingCoverage(val value: kotlin.String) {
+    enum class OverdraftInterestChargingCoverage(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Tiered") Tiered("Tiered"),
-        @JsonProperty("Whole") Whole("Whole")
+        Tiered("Tiered"),
+        Whole("Whole");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): OverdraftInterestChargingCoverage {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OverdraftTierBandInner1'")
+            }
+        }
     }
 
 }

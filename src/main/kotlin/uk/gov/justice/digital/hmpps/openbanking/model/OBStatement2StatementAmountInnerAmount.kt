@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import jakarta.validation.constraints.DecimalMax
@@ -38,10 +40,19 @@ data class OBStatement2StatementAmountInnerAmount(
     * The amount in the domestic or base accounting currency. Default is Base Currency (BCUR) if not specified
     * Values: BCUR,LCUR
     */
-    enum class SubType(val value: kotlin.String) {
+    enum class SubType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("BCUR") BCUR("BCUR"),
-        @JsonProperty("LCUR") LCUR("LCUR")
+        BCUR("BCUR"),
+        LCUR("LCUR");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): SubType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBStatement2StatementAmountInnerAmount'")
+            }
+        }
     }
 
 }

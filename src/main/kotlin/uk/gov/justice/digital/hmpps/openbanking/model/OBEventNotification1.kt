@@ -1,5 +1,6 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
 import uk.gov.justice.digital.hmpps.openbanking.model.OBEvent1
@@ -30,7 +31,7 @@ data class OBEventNotification1(
     @Schema(example = "null", required = true, description = "Issuer.")
     @get:JsonProperty("iss", required = true) val iss: kotlin.String,
 
-    @get:Min(0)
+    @get:Min(value=0)
     @Schema(example = "null", required = true, description = "Issued At. ")
     @get:JsonProperty("iat", required = true) val iat: kotlin.Int,
 
@@ -50,7 +51,7 @@ data class OBEventNotification1(
     @Schema(example = "null", required = true, description = "Transaction Identifier.")
     @get:JsonProperty("txn", required = true) val txn: kotlin.String,
 
-    @get:Min(0)
+    @get:Min(value=0)
     @Schema(example = "null", required = true, description = "Time of Event.")
     @get:JsonProperty("toe", required = true) val toe: kotlin.Int,
 

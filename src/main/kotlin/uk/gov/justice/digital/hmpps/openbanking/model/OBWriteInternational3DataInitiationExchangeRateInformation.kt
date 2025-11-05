@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import jakarta.validation.constraints.DecimalMax
@@ -42,11 +44,20 @@ data class OBWriteInternational3DataInitiationExchangeRateInformation(
     * Specifies the type used to complete the currency exchange.
     * Values: Actual,Agreed,Indicative
     */
-    enum class RateType(val value: kotlin.String) {
+    enum class RateType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Actual") Actual("Actual"),
-        @JsonProperty("Agreed") Agreed("Agreed"),
-        @JsonProperty("Indicative") Indicative("Indicative")
+        Actual("Actual"),
+        Agreed("Agreed"),
+        Indicative("Indicative");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): RateType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBWriteInternational3DataInitiationExchangeRateInformation'")
+            }
+        }
     }
 
 }

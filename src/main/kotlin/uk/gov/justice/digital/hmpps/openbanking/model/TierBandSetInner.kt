@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.TierBandInner
@@ -47,31 +49,58 @@ data class TierBandSetInner(
     * The methodology of how credit interest is paid/applied. It can be:-  1. Banded Interest rates are banded. i.e. Increasing rate on whole balance as balance increases.  2. Tiered Interest rates are tiered. i.e. increasing rate for each tier as balance increases, but interest paid on tier fixed for that tier and not on whole balance.  3. Whole The same interest rate is applied irrespective of the BCA balance
     * Values: Banded,Tiered,Whole
     */
-    enum class TierBandMethod(val value: kotlin.String) {
+    enum class TierBandMethod(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Banded") Banded("Banded"),
-        @JsonProperty("Tiered") Tiered("Tiered"),
-        @JsonProperty("Whole") Whole("Whole")
+        Banded("Banded"),
+        Tiered("Tiered"),
+        Whole("Whole");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): TierBandMethod {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandSetInner'")
+            }
+        }
     }
 
     /**
     * Describes whether accrued interest is payable only to the BCA or to another bank account
     * Values: PayAway,SelfCredit
     */
-    enum class Destination(val value: kotlin.String) {
+    enum class Destination(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("PayAway") PayAway("PayAway"),
-        @JsonProperty("SelfCredit") SelfCredit("SelfCredit")
+        PayAway("PayAway"),
+        SelfCredit("SelfCredit");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): Destination {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandSetInner'")
+            }
+        }
     }
 
     /**
     * Methods of calculating interest
     * Values: Compound,SimpleInterest
     */
-    enum class CalculationMethod(val value: kotlin.String) {
+    enum class CalculationMethod(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Compound") Compound("Compound"),
-        @JsonProperty("SimpleInterest") SimpleInterest("SimpleInterest")
+        Compound("Compound"),
+        SimpleInterest("SimpleInterest");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): CalculationMethod {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandSetInner'")
+            }
+        }
     }
 
 }

@@ -1,7 +1,9 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -18,9 +20,18 @@ import io.swagger.v3.oas.annotations.media.Schema
 * Specifies the scheduled payment date type requested. For a full list of enumeration values refer to `OBInternalScheduleType1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
 * Values: Arrival,Execution
 */
-enum class OBInternalScheduleType1Code(val value: kotlin.String) {
+enum class OBInternalScheduleType1Code(@get:JsonValue val value: kotlin.String) {
 
-    @JsonProperty("Arrival") Arrival("Arrival"),
-    @JsonProperty("Execution") Execution("Execution")
+    Arrival("Arrival"),
+    Execution("Execution");
+
+    companion object {
+        @JvmStatic
+        @JsonCreator
+        fun forValue(value: kotlin.String): OBInternalScheduleType1Code {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBInternalScheduleType1Code'")
+        }
+    }
 }
 

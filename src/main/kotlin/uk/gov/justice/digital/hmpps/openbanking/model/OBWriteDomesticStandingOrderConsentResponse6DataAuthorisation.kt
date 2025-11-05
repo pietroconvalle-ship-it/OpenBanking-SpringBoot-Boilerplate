@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import jakarta.validation.constraints.DecimalMax
@@ -32,10 +34,19 @@ data class OBWriteDomesticStandingOrderConsentResponse6DataAuthorisation(
     * Type of authorisation flow requested.
     * Values: Any,Single
     */
-    enum class AuthorisationType(val value: kotlin.String) {
+    enum class AuthorisationType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Any") Any("Any"),
-        @JsonProperty("Single") Single("Single")
+        Any("Any"),
+        Single("Single");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): AuthorisationType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBWriteDomesticStandingOrderConsentResponse6DataAuthorisation'")
+            }
+        }
     }
 
 }

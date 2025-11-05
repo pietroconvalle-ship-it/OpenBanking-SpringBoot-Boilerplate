@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBReadBalance1DataBalanceInnerCreditLineInnerAmount
@@ -38,13 +40,22 @@ data class OBReadBalance1DataBalanceInnerCreditLineInner(
     * Limit type, in a coded form. <br /> For a full list of enumeration values refer to `OBInternalLimitType1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
     * Values: Available,Credit,Emergency,PreMinusAgreed,Temporary
     */
-    enum class Type(val value: kotlin.String) {
+    enum class Type(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Available") Available("Available"),
-        @JsonProperty("Credit") Credit("Credit"),
-        @JsonProperty("Emergency") Emergency("Emergency"),
-        @JsonProperty("Pre-Agreed") PreMinusAgreed("Pre-Agreed"),
-        @JsonProperty("Temporary") Temporary("Temporary")
+        Available("Available"),
+        Credit("Credit"),
+        Emergency("Emergency"),
+        PreMinusAgreed("Pre-Agreed"),
+        Temporary("Temporary");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): Type {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadBalance1DataBalanceInnerCreditLineInner'")
+            }
+        }
     }
 
 }

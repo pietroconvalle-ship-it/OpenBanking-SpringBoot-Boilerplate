@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBBCAData1
@@ -71,13 +73,22 @@ data class OBReadProduct2DataProductInner(
     * Descriptive code for the product category.  For a full list refer to `OBInternalProductType1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)<br /><br /> If ProductType - \"Other\" is chosen, the object OtherProductType must be populated with name, and description.
     * Values: BusinessCurrentAccount,CommercialCreditCard,Other,PersonalCurrentAccount,SMELoan
     */
-    enum class ProductType(val value: kotlin.String) {
+    enum class ProductType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("BusinessCurrentAccount") BusinessCurrentAccount("BusinessCurrentAccount"),
-        @JsonProperty("CommercialCreditCard") CommercialCreditCard("CommercialCreditCard"),
-        @JsonProperty("Other") Other("Other"),
-        @JsonProperty("PersonalCurrentAccount") PersonalCurrentAccount("PersonalCurrentAccount"),
-        @JsonProperty("SMELoan") SMELoan("SMELoan")
+        BusinessCurrentAccount("BusinessCurrentAccount"),
+        CommercialCreditCard("CommercialCreditCard"),
+        Other("Other"),
+        PersonalCurrentAccount("PersonalCurrentAccount"),
+        SMELoan("SMELoan");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): ProductType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInner'")
+            }
+        }
     }
 
 }

@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBInternalChargeBearerType1Code
@@ -133,10 +135,19 @@ data class OBWriteInternationalScheduled3DataInitiation(
     * Indicator of the urgency or order of importance that the instructing party would like the instructed party to apply to the processing of the instruction.
     * Values: Normal,Urgent
     */
-    enum class InstructionPriority(val value: kotlin.String) {
+    enum class InstructionPriority(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Normal") Normal("Normal"),
-        @JsonProperty("Urgent") Urgent("Urgent")
+        Normal("Normal"),
+        Urgent("Urgent");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): InstructionPriority {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBWriteInternationalScheduled3DataInitiation'")
+            }
+        }
     }
 
 }

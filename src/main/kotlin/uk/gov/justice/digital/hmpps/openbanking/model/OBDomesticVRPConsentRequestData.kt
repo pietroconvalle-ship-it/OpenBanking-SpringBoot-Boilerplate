@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBDomesticVRPControlParameters
@@ -40,10 +42,19 @@ data class OBDomesticVRPConsentRequestData(
     * Indicates whether the `RefundAccount` object should be included in the response 
     * Values: Yes,No
     */
-    enum class ReadRefundAccount(val value: kotlin.String) {
+    enum class ReadRefundAccount(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Yes") Yes("Yes"),
-        @JsonProperty("No") No("No")
+        Yes("Yes"),
+        No("No");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): ReadRefundAccount {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBDomesticVRPConsentRequestData'")
+            }
+        }
     }
 
 }

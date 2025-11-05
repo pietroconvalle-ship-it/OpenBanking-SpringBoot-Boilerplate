@@ -1,9 +1,11 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
-import uk.gov.justice.digital.hmpps.openbanking.model.OBDomesticVRPConsentResponseDataDebtorAccount
+import uk.gov.justice.digital.hmpps.openbanking.model.OBCashAccountDebtorWithName
 import uk.gov.justice.digital.hmpps.openbanking.model.OBDomesticVRPControlParameters
 import uk.gov.justice.digital.hmpps.openbanking.model.OBDomesticVRPInitiation
 import uk.gov.justice.digital.hmpps.openbanking.model.OBStatusReason3
@@ -28,7 +30,7 @@ import io.swagger.v3.oas.annotations.media.Schema
  * @param initiation 
  * @param readRefundAccount Indicates whether information about RefundAccount should be included in the payment response. 
  * @param statusReason 
- * @param debtorAccount 
+ * @param debtorAccount The DebtorAccount details as specified by the PSU when account selection happens at the ASPSP. *Note:* The details must be provided in the consent response (OBDomesticVRPConsentResponse) by the ASPSP to enable the PISP to associate it with future VRP payments that are made using the VRP Consent.
  */
 data class OBDomesticVRPConsentResponseData(
 
@@ -61,31 +63,49 @@ data class OBDomesticVRPConsentResponseData(
     @get:JsonProperty("StatusReason") val statusReason: kotlin.collections.List<OBStatusReason3>? = null,
 
     @field:Valid
-    @Schema(example = "null", description = "")
-    @get:JsonProperty("DebtorAccount") val debtorAccount: OBDomesticVRPConsentResponseDataDebtorAccount? = null
+    @Schema(example = "null", description = "The DebtorAccount details as specified by the PSU when account selection happens at the ASPSP. *Note:* The details must be provided in the consent response (OBDomesticVRPConsentResponse) by the ASPSP to enable the PISP to associate it with future VRP payments that are made using the VRP Consent.")
+    @get:JsonProperty("DebtorAccount") val debtorAccount: OBCashAccountDebtorWithName? = null
 ) {
 
     /**
     * Specifies the status of consent resource in code form. AWAU and RJCT only can returned on initial submission. For a full list of values see `OBInternalConsentStatus1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
     * Values: AWAU,RJCT,AUTH,CANC,EXPD
     */
-    enum class Status(val value: kotlin.String) {
+    enum class Status(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("AWAU") AWAU("AWAU"),
-        @JsonProperty("RJCT") RJCT("RJCT"),
-        @JsonProperty("AUTH") AUTH("AUTH"),
-        @JsonProperty("CANC") CANC("CANC"),
-        @JsonProperty("EXPD") EXPD("EXPD")
+        AWAU("AWAU"),
+        RJCT("RJCT"),
+        AUTH("AUTH"),
+        CANC("CANC"),
+        EXPD("EXPD");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): Status {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBDomesticVRPConsentResponseData'")
+            }
+        }
     }
 
     /**
     * Indicates whether information about RefundAccount should be included in the payment response. 
     * Values: Yes,No
     */
-    enum class ReadRefundAccount(val value: kotlin.String) {
+    enum class ReadRefundAccount(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Yes") Yes("Yes"),
-        @JsonProperty("No") No("No")
+        Yes("Yes"),
+        No("No");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): ReadRefundAccount {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBDomesticVRPConsentResponseData'")
+            }
+        }
     }
 
 }

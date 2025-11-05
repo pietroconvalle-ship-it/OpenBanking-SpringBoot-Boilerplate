@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBCashAccountDebtor4
@@ -81,13 +83,22 @@ data class OBWriteFileConsentResponse4Data(
     * Specifies the status of consent resource in code form.
     * Values: AWAU,AWUP,RJCT,AUTH,COND
     */
-    enum class Status(val value: kotlin.String) {
+    enum class Status(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("AWAU") AWAU("AWAU"),
-        @JsonProperty("AWUP") AWUP("AWUP"),
-        @JsonProperty("RJCT") RJCT("RJCT"),
-        @JsonProperty("AUTH") AUTH("AUTH"),
-        @JsonProperty("COND") COND("COND")
+        AWAU("AWAU"),
+        AWUP("AWUP"),
+        RJCT("RJCT"),
+        AUTH("AUTH"),
+        COND("COND");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): Status {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBWriteFileConsentResponse4Data'")
+            }
+        }
     }
 
 }

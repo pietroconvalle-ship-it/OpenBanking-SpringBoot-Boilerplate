@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import jakarta.validation.constraints.DecimalMax
@@ -44,11 +46,20 @@ data class OBWriteDomesticScheduledResponse5DataMultiAuthorisation(
     * Specifies the status of the authorisation flow in code form.
     * Values: AUTH,AWAF,RJCT
     */
-    enum class Status(val value: kotlin.String) {
+    enum class Status(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("AUTH") AUTH("AUTH"),
-        @JsonProperty("AWAF") AWAF("AWAF"),
-        @JsonProperty("RJCT") RJCT("RJCT")
+        AUTH("AUTH"),
+        AWAF("AWAF"),
+        RJCT("RJCT");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): Status {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBWriteDomesticScheduledResponse5DataMultiAuthorisation'")
+            }
+        }
     }
 
 }

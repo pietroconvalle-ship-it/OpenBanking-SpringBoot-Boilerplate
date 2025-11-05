@@ -1,5 +1,6 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
 import uk.gov.justice.digital.hmpps.openbanking.model.OBEventResourceUpdate1
@@ -16,13 +17,13 @@ import io.swagger.v3.oas.annotations.media.Schema
 
 /**
  * Events.
- * @param urnColonUkColonOrgColonOpenbankingColonEventsColonResourceUpdate 
+ * @param urnUkOrgOpenbankingEventsResourceUpdate 
  */
 data class OBEvent1(
 
     @field:Valid
     @Schema(example = "null", required = true, description = "")
-    @get:JsonProperty("urn:uk:org:openbanking:events:resource-update", required = true) val urnColonUkColonOrgColonOpenbankingColonEventsColonResourceUpdate: OBEventResourceUpdate1
+    @get:JsonProperty("urn:uk:org:openbanking:events:resource-update", required = true) val urnUkOrgOpenbankingEventsResourceUpdate: OBEventResourceUpdate1
 ) {
 
 }

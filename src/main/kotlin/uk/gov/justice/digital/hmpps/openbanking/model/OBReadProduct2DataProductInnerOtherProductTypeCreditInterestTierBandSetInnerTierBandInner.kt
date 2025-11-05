@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBInterestFixedVariableType1Code
@@ -93,59 +95,95 @@ data class OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandS
     * How often is interest applied to the Product for this tier/band i.e. how often the financial institution pays accumulated interest to the customer's account.
     * Values: FQAT,FQDY,FQHY,FQMY,FQOT,FQQY,FQSD,FQWY,FQYY
     */
-    enum class ApplicationFrequency(val value: kotlin.String) {
+    enum class ApplicationFrequency(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("FQAT") FQAT("FQAT"),
-        @JsonProperty("FQDY") FQDY("FQDY"),
-        @JsonProperty("FQHY") FQHY("FQHY"),
-        @JsonProperty("FQMY") FQMY("FQMY"),
-        @JsonProperty("FQOT") FQOT("FQOT"),
-        @JsonProperty("FQQY") FQQY("FQQY"),
-        @JsonProperty("FQSD") FQSD("FQSD"),
-        @JsonProperty("FQWY") FQWY("FQWY"),
-        @JsonProperty("FQYY") FQYY("FQYY")
+        FQAT("FQAT"),
+        FQDY("FQDY"),
+        FQHY("FQHY"),
+        FQMY("FQMY"),
+        FQOT("FQOT"),
+        FQQY("FQQY"),
+        FQSD("FQSD"),
+        FQWY("FQWY"),
+        FQYY("FQYY");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): ApplicationFrequency {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner'")
+            }
+        }
     }
 
     /**
     * How often is credit interest calculated for the account.
     * Values: FQAT,FQDY,FQHY,FQMY,FQOT,FQQY,FQSD,FQWY,FQYY
     */
-    enum class CalculationFrequency(val value: kotlin.String) {
+    enum class CalculationFrequency(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("FQAT") FQAT("FQAT"),
-        @JsonProperty("FQDY") FQDY("FQDY"),
-        @JsonProperty("FQHY") FQHY("FQHY"),
-        @JsonProperty("FQMY") FQMY("FQMY"),
-        @JsonProperty("FQOT") FQOT("FQOT"),
-        @JsonProperty("FQQY") FQQY("FQQY"),
-        @JsonProperty("FQSD") FQSD("FQSD"),
-        @JsonProperty("FQWY") FQWY("FQWY"),
-        @JsonProperty("FQYY") FQYY("FQYY")
+        FQAT("FQAT"),
+        FQDY("FQDY"),
+        FQHY("FQHY"),
+        FQMY("FQMY"),
+        FQOT("FQOT"),
+        FQQY("FQQY"),
+        FQSD("FQSD"),
+        FQWY("FQWY"),
+        FQYY("FQYY");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): CalculationFrequency {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner'")
+            }
+        }
     }
 
     /**
     * Amount on which Interest applied.
     * Values: INBA,INTI,INWH
     */
-    enum class DepositInterestAppliedCoverage(val value: kotlin.String) {
+    enum class DepositInterestAppliedCoverage(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("INBA") INBA("INBA"),
-        @JsonProperty("INTI") INTI("INTI"),
-        @JsonProperty("INWH") INWH("INWH")
+        INBA("INBA"),
+        INTI("INTI"),
+        INWH("INWH");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): DepositInterestAppliedCoverage {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner'")
+            }
+        }
     }
 
     /**
     * Interest rate types, other than AER, which financial institutions may use to describe the annual interest rate payable to the account holder's account.
     * Values: INBB,INFR,INGR,INLR,INNE,INOT
     */
-    enum class BankInterestRateType(val value: kotlin.String) {
+    enum class BankInterestRateType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("INBB") INBB("INBB"),
-        @JsonProperty("INFR") INFR("INFR"),
-        @JsonProperty("INGR") INGR("INGR"),
-        @JsonProperty("INLR") INLR("INLR"),
-        @JsonProperty("INNE") INNE("INNE"),
-        @JsonProperty("INOT") INOT("INOT")
+        INBB("INBB"),
+        INFR("INFR"),
+        INGR("INGR"),
+        INLR("INLR"),
+        INNE("INNE"),
+        INOT("INOT");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): BankInterestRateType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner'")
+            }
+        }
     }
 
 }

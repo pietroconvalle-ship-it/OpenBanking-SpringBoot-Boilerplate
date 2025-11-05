@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBCashAccountDebtor4
@@ -93,22 +95,40 @@ data class OBWriteDomesticConsentResponse5Data(
     * Specifies the status of consent resource in code form. For a full list of values refer to `OBInternalConsentStatus1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
     * Values: AWAU,RJCT,AUTH,COND
     */
-    enum class Status(val value: kotlin.String) {
+    enum class Status(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("AWAU") AWAU("AWAU"),
-        @JsonProperty("RJCT") RJCT("RJCT"),
-        @JsonProperty("AUTH") AUTH("AUTH"),
-        @JsonProperty("COND") COND("COND")
+        AWAU("AWAU"),
+        RJCT("RJCT"),
+        AUTH("AUTH"),
+        COND("COND");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): Status {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBWriteDomesticConsentResponse5Data'")
+            }
+        }
     }
 
     /**
     * Specifies to share the refund account details with PISP. For a full list of values refer to `OBInternalReadRefundAccount1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
     * Values: No,Yes
     */
-    enum class ReadRefundAccount(val value: kotlin.String) {
+    enum class ReadRefundAccount(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("No") No("No"),
-        @JsonProperty("Yes") Yes("Yes")
+        No("No"),
+        Yes("Yes");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): ReadRefundAccount {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBWriteDomesticConsentResponse5Data'")
+            }
+        }
     }
 
 }

@@ -1,7 +1,9 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -18,9 +20,18 @@ import io.swagger.v3.oas.annotations.media.Schema
 * Specifies the type of account (personal or business).
 * Values: Business,Personal
 */
-enum class OBExternalAccountType1Code(val value: kotlin.String) {
+enum class OBExternalAccountType1Code(@get:JsonValue val value: kotlin.String) {
 
-    @JsonProperty("Business") Business("Business"),
-    @JsonProperty("Personal") Personal("Personal")
+    Business("Business"),
+    Personal("Personal");
+
+    companion object {
+        @JvmStatic
+        @JsonCreator
+        fun forValue(value: kotlin.String): OBExternalAccountType1Code {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBExternalAccountType1Code'")
+        }
+    }
 }
 

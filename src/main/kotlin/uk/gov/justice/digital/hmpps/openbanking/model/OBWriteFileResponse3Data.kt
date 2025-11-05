@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBCashAccountDebtor4
@@ -76,11 +78,20 @@ data class OBWriteFileResponse3Data(
     * Specifies the status of the payment order resource. See `ExternalPaymentTransactionStatus1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets) for more information.
     * Values: INFA,INCO,PDNG
     */
-    enum class Status(val value: kotlin.String) {
+    enum class Status(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("INFA") INFA("INFA"),
-        @JsonProperty("INCO") INCO("INCO"),
-        @JsonProperty("PDNG") PDNG("PDNG")
+        INFA("INFA"),
+        INCO("INCO"),
+        PDNG("PDNG");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): Status {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBWriteFileResponse3Data'")
+            }
+        }
     }
 
 }

@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import jakarta.validation.constraints.DecimalMax
@@ -41,29 +43,38 @@ data class OBReadConsent1Data(
     * 
     * Values: ReadAccountsBasic,ReadAccountsDetail,ReadBalances,ReadBeneficiariesBasic,ReadBeneficiariesDetail,ReadDirectDebits,ReadOffers,ReadPAN,ReadParty,ReadPartyPSU,ReadProducts,ReadScheduledPaymentsBasic,ReadScheduledPaymentsDetail,ReadStandingOrdersBasic,ReadStandingOrdersDetail,ReadStatementsBasic,ReadStatementsDetail,ReadTransactionsBasic,ReadTransactionsCredits,ReadTransactionsDebits,ReadTransactionsDetail
     */
-    enum class Permissions(val value: kotlin.String) {
+    enum class Permissions(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("ReadAccountsBasic") ReadAccountsBasic("ReadAccountsBasic"),
-        @JsonProperty("ReadAccountsDetail") ReadAccountsDetail("ReadAccountsDetail"),
-        @JsonProperty("ReadBalances") ReadBalances("ReadBalances"),
-        @JsonProperty("ReadBeneficiariesBasic") ReadBeneficiariesBasic("ReadBeneficiariesBasic"),
-        @JsonProperty("ReadBeneficiariesDetail") ReadBeneficiariesDetail("ReadBeneficiariesDetail"),
-        @JsonProperty("ReadDirectDebits") ReadDirectDebits("ReadDirectDebits"),
-        @JsonProperty("ReadOffers") ReadOffers("ReadOffers"),
-        @JsonProperty("ReadPAN") ReadPAN("ReadPAN"),
-        @JsonProperty("ReadParty") ReadParty("ReadParty"),
-        @JsonProperty("ReadPartyPSU") ReadPartyPSU("ReadPartyPSU"),
-        @JsonProperty("ReadProducts") ReadProducts("ReadProducts"),
-        @JsonProperty("ReadScheduledPaymentsBasic") ReadScheduledPaymentsBasic("ReadScheduledPaymentsBasic"),
-        @JsonProperty("ReadScheduledPaymentsDetail") ReadScheduledPaymentsDetail("ReadScheduledPaymentsDetail"),
-        @JsonProperty("ReadStandingOrdersBasic") ReadStandingOrdersBasic("ReadStandingOrdersBasic"),
-        @JsonProperty("ReadStandingOrdersDetail") ReadStandingOrdersDetail("ReadStandingOrdersDetail"),
-        @JsonProperty("ReadStatementsBasic") ReadStatementsBasic("ReadStatementsBasic"),
-        @JsonProperty("ReadStatementsDetail") ReadStatementsDetail("ReadStatementsDetail"),
-        @JsonProperty("ReadTransactionsBasic") ReadTransactionsBasic("ReadTransactionsBasic"),
-        @JsonProperty("ReadTransactionsCredits") ReadTransactionsCredits("ReadTransactionsCredits"),
-        @JsonProperty("ReadTransactionsDebits") ReadTransactionsDebits("ReadTransactionsDebits"),
-        @JsonProperty("ReadTransactionsDetail") ReadTransactionsDetail("ReadTransactionsDetail")
+        ReadAccountsBasic("ReadAccountsBasic"),
+        ReadAccountsDetail("ReadAccountsDetail"),
+        ReadBalances("ReadBalances"),
+        ReadBeneficiariesBasic("ReadBeneficiariesBasic"),
+        ReadBeneficiariesDetail("ReadBeneficiariesDetail"),
+        ReadDirectDebits("ReadDirectDebits"),
+        ReadOffers("ReadOffers"),
+        ReadPAN("ReadPAN"),
+        ReadParty("ReadParty"),
+        ReadPartyPSU("ReadPartyPSU"),
+        ReadProducts("ReadProducts"),
+        ReadScheduledPaymentsBasic("ReadScheduledPaymentsBasic"),
+        ReadScheduledPaymentsDetail("ReadScheduledPaymentsDetail"),
+        ReadStandingOrdersBasic("ReadStandingOrdersBasic"),
+        ReadStandingOrdersDetail("ReadStandingOrdersDetail"),
+        ReadStatementsBasic("ReadStatementsBasic"),
+        ReadStatementsDetail("ReadStatementsDetail"),
+        ReadTransactionsBasic("ReadTransactionsBasic"),
+        ReadTransactionsCredits("ReadTransactionsCredits"),
+        ReadTransactionsDebits("ReadTransactionsDebits"),
+        ReadTransactionsDetail("ReadTransactionsDetail");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): Permissions {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadConsent1Data'")
+            }
+        }
     }
 
 }

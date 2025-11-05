@@ -1,7 +1,9 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -18,15 +20,24 @@ import io.swagger.v3.oas.annotations.media.Schema
 * Identifies the nature of the postal address. <br /> For a full set of codes see `OBAddressType2Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets).
 * Values: BIZZ,DLVY,MLTO,PBOX,ADDR,HOME,CORR,STAT
 */
-enum class OBAddressType2Code(val value: kotlin.String) {
+enum class OBAddressType2Code(@get:JsonValue val value: kotlin.String) {
 
-    @JsonProperty("BIZZ") BIZZ("BIZZ"),
-    @JsonProperty("DLVY") DLVY("DLVY"),
-    @JsonProperty("MLTO") MLTO("MLTO"),
-    @JsonProperty("PBOX") PBOX("PBOX"),
-    @JsonProperty("ADDR") ADDR("ADDR"),
-    @JsonProperty("HOME") HOME("HOME"),
-    @JsonProperty("CORR") CORR("CORR"),
-    @JsonProperty("STAT") STAT("STAT")
+    BIZZ("BIZZ"),
+    DLVY("DLVY"),
+    MLTO("MLTO"),
+    PBOX("PBOX"),
+    ADDR("ADDR"),
+    HOME("HOME"),
+    CORR("CORR"),
+    STAT("STAT");
+
+    companion object {
+        @JvmStatic
+        @JsonCreator
+        fun forValue(value: kotlin.String): OBAddressType2Code {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBAddressType2Code'")
+        }
+    }
 }
 

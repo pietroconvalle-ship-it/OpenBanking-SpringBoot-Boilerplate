@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import jakarta.validation.constraints.DecimalMax
@@ -43,24 +45,42 @@ data class OBDomesticVRPControlParametersPeriodicLimitsInner(
     * ^ Period type for this period limit
     * Values: Day,Week,Fortnight,Month,HalfMinusYear,Year
     */
-    enum class PeriodType(val value: kotlin.String) {
+    enum class PeriodType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Day") Day("Day"),
-        @JsonProperty("Week") Week("Week"),
-        @JsonProperty("Fortnight") Fortnight("Fortnight"),
-        @JsonProperty("Month") Month("Month"),
-        @JsonProperty("Half-year") HalfMinusYear("Half-year"),
-        @JsonProperty("Year") Year("Year")
+        Day("Day"),
+        Week("Week"),
+        Fortnight("Fortnight"),
+        Month("Month"),
+        HalfMinusYear("Half-year"),
+        Year("Year");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): PeriodType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBDomesticVRPControlParametersPeriodicLimitsInner'")
+            }
+        }
     }
 
     /**
     * Specifies whether the period starts on the date of consent creation or lines up with a calendar. As the ISO calendar does not support or provide any guidance on when a fortnight should start, a `PeriodType` of `Fortnight` the `PeriodAlignment` must be `Consent`.
     * Values: Consent,Calendar
     */
-    enum class PeriodAlignment(val value: kotlin.String) {
+    enum class PeriodAlignment(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Consent") Consent("Consent"),
-        @JsonProperty("Calendar") Calendar("Calendar")
+        Consent("Consent"),
+        Calendar("Calendar");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): PeriodAlignment {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBDomesticVRPControlParametersPeriodicLimitsInner'")
+            }
+        }
     }
 
 }

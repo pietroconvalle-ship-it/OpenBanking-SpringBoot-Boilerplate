@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBSCASupportData1
@@ -50,19 +52,37 @@ data class OBWriteDomesticScheduledConsent4Data(
     * Specifies the Open Banking service request types. For a full list of values see `OBInternalPermissions2Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
     * Values: Create
     */
-    enum class Permission(val value: kotlin.String) {
+    enum class Permission(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Create") Create("Create")
+        Create("Create");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): Permission {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBWriteDomesticScheduledConsent4Data'")
+            }
+        }
     }
 
     /**
     * Specifies to share the refund account details with PISP. For a full list of values see `OBInternalReadRefundAccount1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
     * Values: No,Yes
     */
-    enum class ReadRefundAccount(val value: kotlin.String) {
+    enum class ReadRefundAccount(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("No") No("No"),
-        @JsonProperty("Yes") Yes("Yes")
+        No("No"),
+        Yes("Yes");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): ReadRefundAccount {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBWriteDomesticScheduledConsent4Data'")
+            }
+        }
     }
 
 }

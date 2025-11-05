@@ -1,7 +1,9 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -18,15 +20,24 @@ import io.swagger.v3.oas.annotations.media.Schema
 * Individual Definitions:  ADHO - Adhoc   YEAR - Annual DAIL - Daily INDA - Intra Day MNTH - Monthly QURT - Quarterly WEEK - Weekly 
 * Values: ADHO,YEAR,DAIL,INDA,MNTH,QURT,MIAN,WEEK
 */
-enum class OBFrequencyPeriodType(val value: kotlin.String) {
+enum class OBFrequencyPeriodType(@get:JsonValue val value: kotlin.String) {
 
-    @JsonProperty("ADHO") ADHO("ADHO"),
-    @JsonProperty("YEAR") YEAR("YEAR"),
-    @JsonProperty("DAIL") DAIL("DAIL"),
-    @JsonProperty("INDA") INDA("INDA"),
-    @JsonProperty("MNTH") MNTH("MNTH"),
-    @JsonProperty("QURT") QURT("QURT"),
-    @JsonProperty("MIAN") MIAN("MIAN"),
-    @JsonProperty("WEEK") WEEK("WEEK")
+    ADHO("ADHO"),
+    YEAR("YEAR"),
+    DAIL("DAIL"),
+    INDA("INDA"),
+    MNTH("MNTH"),
+    QURT("QURT"),
+    MIAN("MIAN"),
+    WEEK("WEEK");
+
+    companion object {
+        @JvmStatic
+        @JsonCreator
+        fun forValue(value: kotlin.String): OBFrequencyPeriodType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBFrequencyPeriodType'")
+        }
+    }
 }
 

@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBCashAccountDebtor4
@@ -82,16 +84,25 @@ data class OBWriteDomesticStandingOrderResponse6Data(
     * Specifies the status of the payment order resource. For a full list of values see `ExternalPaymentTransactionStatus1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
     * Values: RCVD,CANC,ACTC,PATC,PDNG,INFA,INCO,RJCT
     */
-    enum class Status(val value: kotlin.String) {
+    enum class Status(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("RCVD") RCVD("RCVD"),
-        @JsonProperty("CANC") CANC("CANC"),
-        @JsonProperty("ACTC") ACTC("ACTC"),
-        @JsonProperty("PATC") PATC("PATC"),
-        @JsonProperty("PDNG") PDNG("PDNG"),
-        @JsonProperty("INFA") INFA("INFA"),
-        @JsonProperty("INCO") INCO("INCO"),
-        @JsonProperty("RJCT") RJCT("RJCT")
+        RCVD("RCVD"),
+        CANC("CANC"),
+        ACTC("ACTC"),
+        PATC("PATC"),
+        PDNG("PDNG"),
+        INFA("INFA"),
+        INCO("INCO"),
+        RJCT("RJCT");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): Status {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBWriteDomesticStandingOrderResponse6Data'")
+            }
+        }
     }
 
 }

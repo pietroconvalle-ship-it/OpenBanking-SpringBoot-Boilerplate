@@ -1,7 +1,9 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -18,16 +20,25 @@ import io.swagger.v3.oas.annotations.media.Schema
 * For a full list of enumeration values refer to `OBFrequency2Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_internal_CodeSets)
 * Values: YEAR,DAIL,INDA,MNTH,QURT,MIAN,TEND,MOVE,WEEK
 */
-enum class OBFrequency2(val value: kotlin.String) {
+enum class OBFrequency2(@get:JsonValue val value: kotlin.String) {
 
-    @JsonProperty("YEAR") YEAR("YEAR"),
-    @JsonProperty("DAIL") DAIL("DAIL"),
-    @JsonProperty("INDA") INDA("INDA"),
-    @JsonProperty("MNTH") MNTH("MNTH"),
-    @JsonProperty("QURT") QURT("QURT"),
-    @JsonProperty("MIAN") MIAN("MIAN"),
-    @JsonProperty("TEND") TEND("TEND"),
-    @JsonProperty("MOVE") MOVE("MOVE"),
-    @JsonProperty("WEEK") WEEK("WEEK")
+    YEAR("YEAR"),
+    DAIL("DAIL"),
+    INDA("INDA"),
+    MNTH("MNTH"),
+    QURT("QURT"),
+    MIAN("MIAN"),
+    TEND("TEND"),
+    MOVE("MOVE"),
+    WEEK("WEEK");
+
+    companion object {
+        @JvmStatic
+        @JsonCreator
+        fun forValue(value: kotlin.String): OBFrequency2 {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBFrequency2'")
+        }
+    }
 }
 

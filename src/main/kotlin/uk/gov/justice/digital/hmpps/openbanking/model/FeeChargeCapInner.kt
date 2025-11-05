@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OtherFeeTypeInner
@@ -56,40 +58,67 @@ data class FeeChargeCapInner(
     * Fee/charge type which is being capped
     * Values: Other,ServiceCAccountFee,ServiceCAccountFeeMonthly,ServiceCAccountFeeQuarterly,ServiceCFixedTariff,ServiceCBusiDepAccBreakage,ServiceCMinimumMonthlyFee,ServiceCOther
     */
-    enum class FeeType(val value: kotlin.String) {
+    enum class FeeType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Other") Other("Other"),
-        @JsonProperty("ServiceCAccountFee") ServiceCAccountFee("ServiceCAccountFee"),
-        @JsonProperty("ServiceCAccountFeeMonthly") ServiceCAccountFeeMonthly("ServiceCAccountFeeMonthly"),
-        @JsonProperty("ServiceCAccountFeeQuarterly") ServiceCAccountFeeQuarterly("ServiceCAccountFeeQuarterly"),
-        @JsonProperty("ServiceCFixedTariff") ServiceCFixedTariff("ServiceCFixedTariff"),
-        @JsonProperty("ServiceCBusiDepAccBreakage") ServiceCBusiDepAccBreakage("ServiceCBusiDepAccBreakage"),
-        @JsonProperty("ServiceCMinimumMonthlyFee") ServiceCMinimumMonthlyFee("ServiceCMinimumMonthlyFee"),
-        @JsonProperty("ServiceCOther") ServiceCOther("ServiceCOther")
+        Other("Other"),
+        ServiceCAccountFee("ServiceCAccountFee"),
+        ServiceCAccountFeeMonthly("ServiceCAccountFeeMonthly"),
+        ServiceCAccountFeeQuarterly("ServiceCAccountFeeQuarterly"),
+        ServiceCFixedTariff("ServiceCFixedTariff"),
+        ServiceCBusiDepAccBreakage("ServiceCBusiDepAccBreakage"),
+        ServiceCMinimumMonthlyFee("ServiceCMinimumMonthlyFee"),
+        ServiceCOther("ServiceCOther");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): FeeType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'FeeChargeCapInner'")
+            }
+        }
     }
 
     /**
     * Min Max type
     * Values: Minimum,Maximum
     */
-    enum class MinMaxType(val value: kotlin.String) {
+    enum class MinMaxType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Minimum") Minimum("Minimum"),
-        @JsonProperty("Maximum") Maximum("Maximum")
+        Minimum("Minimum"),
+        Maximum("Maximum");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): MinMaxType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'FeeChargeCapInner'")
+            }
+        }
     }
 
     /**
     * Period e.g. day, week, month etc. for which the fee/charge is capped
     * Values: Day,Half_Year,Month,Quarter,Week,Year
     */
-    enum class CappingPeriod(val value: kotlin.String) {
+    enum class CappingPeriod(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Day") Day("Day"),
-        @JsonProperty("Half Year") Half_Year("Half Year"),
-        @JsonProperty("Month") Month("Month"),
-        @JsonProperty("Quarter") Quarter("Quarter"),
-        @JsonProperty("Week") Week("Week"),
-        @JsonProperty("Year") Year("Year")
+        Day("Day"),
+        Half_Year("Half Year"),
+        Month("Month"),
+        Quarter("Quarter"),
+        Week("Week"),
+        Year("Year");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): CappingPeriod {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'FeeChargeCapInner'")
+            }
+        }
     }
 
 }

@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OtherApplicationFrequency
@@ -97,86 +99,122 @@ data class OverdraftFeeChargeDetailInner(
     * Overdraft fee type
     * Values: ArrangedOverdraft,AnnualReview,EmergencyBorrowing,BorrowingItem,OverdraftRenewal,OverdraftSetup,Surcharge,TempOverdraft,UnauthorisedBorrowing,UnauthorisedPaidTrans,Other,UnauthorisedUnpaidTrans
     */
-    enum class FeeType(val value: kotlin.String) {
+    enum class FeeType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("ArrangedOverdraft") ArrangedOverdraft("ArrangedOverdraft"),
-        @JsonProperty("AnnualReview") AnnualReview("AnnualReview"),
-        @JsonProperty("EmergencyBorrowing") EmergencyBorrowing("EmergencyBorrowing"),
-        @JsonProperty("BorrowingItem") BorrowingItem("BorrowingItem"),
-        @JsonProperty("OverdraftRenewal") OverdraftRenewal("OverdraftRenewal"),
-        @JsonProperty("OverdraftSetup") OverdraftSetup("OverdraftSetup"),
-        @JsonProperty("Surcharge") Surcharge("Surcharge"),
-        @JsonProperty("TempOverdraft") TempOverdraft("TempOverdraft"),
-        @JsonProperty("UnauthorisedBorrowing") UnauthorisedBorrowing("UnauthorisedBorrowing"),
-        @JsonProperty("UnauthorisedPaidTrans") UnauthorisedPaidTrans("UnauthorisedPaidTrans"),
-        @JsonProperty("Other") Other("Other"),
-        @JsonProperty("UnauthorisedUnpaidTrans") UnauthorisedUnpaidTrans("UnauthorisedUnpaidTrans")
+        ArrangedOverdraft("ArrangedOverdraft"),
+        AnnualReview("AnnualReview"),
+        EmergencyBorrowing("EmergencyBorrowing"),
+        BorrowingItem("BorrowingItem"),
+        OverdraftRenewal("OverdraftRenewal"),
+        OverdraftSetup("OverdraftSetup"),
+        Surcharge("Surcharge"),
+        TempOverdraft("TempOverdraft"),
+        UnauthorisedBorrowing("UnauthorisedBorrowing"),
+        UnauthorisedPaidTrans("UnauthorisedPaidTrans"),
+        Other("Other"),
+        UnauthorisedUnpaidTrans("UnauthorisedUnpaidTrans");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): FeeType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OverdraftFeeChargeDetailInner'")
+            }
+        }
     }
 
     /**
     * Frequency at which the overdraft charge is applied to the account
     * Values: OnClosing,OnOpening,ChargingPeriod,Daily,PerItem,Monthly,OnAnniversary,Other,PerHundredPounds,PerHour,PerOccurrence,PerSheet,PerTransaction,PerTransactionAmount,PerTransactionPercentage,Quarterly,SixMonthly,StatementMonthly,Weekly,Yearly
     */
-    enum class ApplicationFrequency(val value: kotlin.String) {
+    enum class ApplicationFrequency(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("OnClosing") OnClosing("OnClosing"),
-        @JsonProperty("OnOpening") OnOpening("OnOpening"),
-        @JsonProperty("ChargingPeriod") ChargingPeriod("ChargingPeriod"),
-        @JsonProperty("Daily") Daily("Daily"),
-        @JsonProperty("PerItem") PerItem("PerItem"),
-        @JsonProperty("Monthly") Monthly("Monthly"),
-        @JsonProperty("OnAnniversary") OnAnniversary("OnAnniversary"),
-        @JsonProperty("Other") Other("Other"),
-        @JsonProperty("PerHundredPounds") PerHundredPounds("PerHundredPounds"),
-        @JsonProperty("PerHour") PerHour("PerHour"),
-        @JsonProperty("PerOccurrence") PerOccurrence("PerOccurrence"),
-        @JsonProperty("PerSheet") PerSheet("PerSheet"),
-        @JsonProperty("PerTransaction") PerTransaction("PerTransaction"),
-        @JsonProperty("PerTransactionAmount") PerTransactionAmount("PerTransactionAmount"),
-        @JsonProperty("PerTransactionPercentage") PerTransactionPercentage("PerTransactionPercentage"),
-        @JsonProperty("Quarterly") Quarterly("Quarterly"),
-        @JsonProperty("SixMonthly") SixMonthly("SixMonthly"),
-        @JsonProperty("StatementMonthly") StatementMonthly("StatementMonthly"),
-        @JsonProperty("Weekly") Weekly("Weekly"),
-        @JsonProperty("Yearly") Yearly("Yearly")
+        OnClosing("OnClosing"),
+        OnOpening("OnOpening"),
+        ChargingPeriod("ChargingPeriod"),
+        Daily("Daily"),
+        PerItem("PerItem"),
+        Monthly("Monthly"),
+        OnAnniversary("OnAnniversary"),
+        Other("Other"),
+        PerHundredPounds("PerHundredPounds"),
+        PerHour("PerHour"),
+        PerOccurrence("PerOccurrence"),
+        PerSheet("PerSheet"),
+        PerTransaction("PerTransaction"),
+        PerTransactionAmount("PerTransactionAmount"),
+        PerTransactionPercentage("PerTransactionPercentage"),
+        Quarterly("Quarterly"),
+        SixMonthly("SixMonthly"),
+        StatementMonthly("StatementMonthly"),
+        Weekly("Weekly"),
+        Yearly("Yearly");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): ApplicationFrequency {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OverdraftFeeChargeDetailInner'")
+            }
+        }
     }
 
     /**
     * Rate type for overdraft fee/charge (where it is charged in terms of a rate rather than an amount)
     * Values: Gross,Other
     */
-    enum class FeeRateType(val value: kotlin.String) {
+    enum class FeeRateType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("Gross") Gross("Gross"),
-        @JsonProperty("Other") Other("Other")
+        Gross("Gross"),
+        Other("Other");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): FeeRateType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OverdraftFeeChargeDetailInner'")
+            }
+        }
     }
 
     /**
     * How often is the overdraft fee/charge calculated for the account.
     * Values: OnClosing,OnOpening,ChargingPeriod,Daily,PerItem,Monthly,OnAnniversary,Other,PerHundredPounds,PerHour,PerOccurrence,PerSheet,PerTransaction,PerTransactionAmount,PerTransactionPercentage,Quarterly,SixMonthly,StatementMonthly,Weekly,Yearly
     */
-    enum class CalculationFrequency(val value: kotlin.String) {
+    enum class CalculationFrequency(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("OnClosing") OnClosing("OnClosing"),
-        @JsonProperty("OnOpening") OnOpening("OnOpening"),
-        @JsonProperty("ChargingPeriod") ChargingPeriod("ChargingPeriod"),
-        @JsonProperty("Daily") Daily("Daily"),
-        @JsonProperty("PerItem") PerItem("PerItem"),
-        @JsonProperty("Monthly") Monthly("Monthly"),
-        @JsonProperty("OnAnniversary") OnAnniversary("OnAnniversary"),
-        @JsonProperty("Other") Other("Other"),
-        @JsonProperty("PerHundredPounds") PerHundredPounds("PerHundredPounds"),
-        @JsonProperty("PerHour") PerHour("PerHour"),
-        @JsonProperty("PerOccurrence") PerOccurrence("PerOccurrence"),
-        @JsonProperty("PerSheet") PerSheet("PerSheet"),
-        @JsonProperty("PerTransaction") PerTransaction("PerTransaction"),
-        @JsonProperty("PerTransactionAmount") PerTransactionAmount("PerTransactionAmount"),
-        @JsonProperty("PerTransactionPercentage") PerTransactionPercentage("PerTransactionPercentage"),
-        @JsonProperty("Quarterly") Quarterly("Quarterly"),
-        @JsonProperty("SixMonthly") SixMonthly("SixMonthly"),
-        @JsonProperty("StatementMonthly") StatementMonthly("StatementMonthly"),
-        @JsonProperty("Weekly") Weekly("Weekly"),
-        @JsonProperty("Yearly") Yearly("Yearly")
+        OnClosing("OnClosing"),
+        OnOpening("OnOpening"),
+        ChargingPeriod("ChargingPeriod"),
+        Daily("Daily"),
+        PerItem("PerItem"),
+        Monthly("Monthly"),
+        OnAnniversary("OnAnniversary"),
+        Other("Other"),
+        PerHundredPounds("PerHundredPounds"),
+        PerHour("PerHour"),
+        PerOccurrence("PerOccurrence"),
+        PerSheet("PerSheet"),
+        PerTransaction("PerTransaction"),
+        PerTransactionAmount("PerTransactionAmount"),
+        PerTransactionPercentage("PerTransactionPercentage"),
+        Quarterly("Quarterly"),
+        SixMonthly("SixMonthly"),
+        StatementMonthly("StatementMonthly"),
+        Weekly("Weekly"),
+        Yearly("Yearly");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): CalculationFrequency {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OverdraftFeeChargeDetailInner'")
+            }
+        }
     }
 
 }

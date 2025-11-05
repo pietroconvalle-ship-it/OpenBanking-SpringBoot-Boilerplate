@@ -1,7 +1,9 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -18,10 +20,19 @@ import io.swagger.v3.oas.annotations.media.Schema
 * 
 * Values: AUTH,AWAU,RJCT
 */
-enum class OBExternalStatus2Code(val value: kotlin.String) {
+enum class OBExternalStatus2Code(@get:JsonValue val value: kotlin.String) {
 
-    @JsonProperty("AUTH") AUTH("AUTH"),
-    @JsonProperty("AWAU") AWAU("AWAU"),
-    @JsonProperty("RJCT") RJCT("RJCT")
+    AUTH("AUTH"),
+    AWAU("AWAU"),
+    RJCT("RJCT");
+
+    companion object {
+        @JvmStatic
+        @JsonCreator
+        fun forValue(value: kotlin.String): OBExternalStatus2Code {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBExternalStatus2Code'")
+        }
+    }
 }
 

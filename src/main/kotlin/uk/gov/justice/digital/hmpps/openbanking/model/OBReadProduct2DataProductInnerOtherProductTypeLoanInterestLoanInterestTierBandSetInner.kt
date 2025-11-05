@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBInterestCalculationMethod1Code
@@ -62,11 +64,20 @@ data class OBReadProduct2DataProductInnerOtherProductTypeLoanInterestLoanInteres
     * The methodology of how credit interest is charged. It can be:- 1. Banded Interest rates are banded. i.e. Increasing rate on whole balance as balance increases. 2. Tiered Interest rates are tiered. i.e. increasing rate for each tier as balance increases, but interest paid on tier fixed for that tier and not on whole balance. 3. Whole The same interest rate is applied irrespective of the SME Loan balance
     * Values: INBA,INTI,INWH
     */
-    enum class TierBandMethod(val value: kotlin.String) {
+    enum class TierBandMethod(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("INBA") INBA("INBA"),
-        @JsonProperty("INTI") INTI("INTI"),
-        @JsonProperty("INWH") INWH("INWH")
+        INBA("INBA"),
+        INTI("INTI"),
+        INWH("INWH");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): TierBandMethod {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeLoanInterestLoanInterestTierBandSetInner'")
+            }
+        }
     }
 
 }

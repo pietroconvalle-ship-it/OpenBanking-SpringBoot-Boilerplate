@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBCashAccountDebtorWithName
@@ -89,21 +91,30 @@ data class OBDomesticVRPResponseData(
     * Specifies the status of the payment information group. For a full list of values refer to `ExternalPaymentTransactionStatus1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
     * Values: RCVD,RJCT,CANC,PDNG,ACTC,ACCP,ACFC,ACSP,ACWC,ACSC,ACWP,ACCC,BLCK
     */
-    enum class Status(val value: kotlin.String) {
+    enum class Status(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("RCVD") RCVD("RCVD"),
-        @JsonProperty("RJCT") RJCT("RJCT"),
-        @JsonProperty("CANC") CANC("CANC"),
-        @JsonProperty("PDNG") PDNG("PDNG"),
-        @JsonProperty("ACTC") ACTC("ACTC"),
-        @JsonProperty("ACCP") ACCP("ACCP"),
-        @JsonProperty("ACFC") ACFC("ACFC"),
-        @JsonProperty("ACSP") ACSP("ACSP"),
-        @JsonProperty("ACWC") ACWC("ACWC"),
-        @JsonProperty("ACSC") ACSC("ACSC"),
-        @JsonProperty("ACWP") ACWP("ACWP"),
-        @JsonProperty("ACCC") ACCC("ACCC"),
-        @JsonProperty("BLCK") BLCK("BLCK")
+        RCVD("RCVD"),
+        RJCT("RJCT"),
+        CANC("CANC"),
+        PDNG("PDNG"),
+        ACTC("ACTC"),
+        ACCP("ACCP"),
+        ACFC("ACFC"),
+        ACSP("ACSP"),
+        ACWC("ACWC"),
+        ACSC("ACSC"),
+        ACWP("ACWP"),
+        ACCC("ACCC"),
+        BLCK("BLCK");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): Status {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBDomesticVRPResponseData'")
+            }
+        }
     }
 
 }

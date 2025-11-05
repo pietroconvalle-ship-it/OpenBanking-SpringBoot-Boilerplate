@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBReadProduct2DataProductInnerOtherProductTypeRepaymentOtherAmountType
@@ -70,53 +72,80 @@ data class OBReadProduct2DataProductInnerOtherProductTypeRepayment(
     * Repayment type
     * Values: USBA,USBU,USCI,USCS,USER,USFA,USFB,USFI,USIO,USOT,USPF,USRW,USSL
     */
-    enum class RepaymentType(val value: kotlin.String) {
+    enum class RepaymentType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("USBA") USBA("USBA"),
-        @JsonProperty("USBU") USBU("USBU"),
-        @JsonProperty("USCI") USCI("USCI"),
-        @JsonProperty("USCS") USCS("USCS"),
-        @JsonProperty("USER") USER("USER"),
-        @JsonProperty("USFA") USFA("USFA"),
-        @JsonProperty("USFB") USFB("USFB"),
-        @JsonProperty("USFI") USFI("USFI"),
-        @JsonProperty("USIO") USIO("USIO"),
-        @JsonProperty("USOT") USOT("USOT"),
-        @JsonProperty("USPF") USPF("USPF"),
-        @JsonProperty("USRW") USRW("USRW"),
-        @JsonProperty("USSL") USSL("USSL")
+        USBA("USBA"),
+        USBU("USBU"),
+        USCI("USCI"),
+        USCS("USCS"),
+        USER("USER"),
+        USFA("USFA"),
+        USFB("USFB"),
+        USFI("USFI"),
+        USIO("USIO"),
+        USOT("USOT"),
+        USPF("USPF"),
+        USRW("USRW"),
+        USSL("USSL");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): RepaymentType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeRepayment'")
+            }
+        }
     }
 
     /**
     * Repayment frequency
     * Values: SMDA,SMFL,SMFO,SMHY,SMMO,SMOT,SMQU,SMWE,SMYE
     */
-    enum class RepaymentFrequency(val value: kotlin.String) {
+    enum class RepaymentFrequency(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("SMDA") SMDA("SMDA"),
-        @JsonProperty("SMFL") SMFL("SMFL"),
-        @JsonProperty("SMFO") SMFO("SMFO"),
-        @JsonProperty("SMHY") SMHY("SMHY"),
-        @JsonProperty("SMMO") SMMO("SMMO"),
-        @JsonProperty("SMOT") SMOT("SMOT"),
-        @JsonProperty("SMQU") SMQU("SMQU"),
-        @JsonProperty("SMWE") SMWE("SMWE"),
-        @JsonProperty("SMYE") SMYE("SMYE")
+        SMDA("SMDA"),
+        SMFL("SMFL"),
+        SMFO("SMFO"),
+        SMHY("SMHY"),
+        SMMO("SMMO"),
+        SMOT("SMOT"),
+        SMQU("SMQU"),
+        SMWE("SMWE"),
+        SMYE("SMYE");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): RepaymentFrequency {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeRepayment'")
+            }
+        }
     }
 
     /**
     * The repayment is for paying just the interest only or both interest and capital or bullet amount or balance to date etc
     * Values: RABD,RABL,RACI,RAFC,RAIO,RALT,USOT
     */
-    enum class AmountType(val value: kotlin.String) {
+    enum class AmountType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("RABD") RABD("RABD"),
-        @JsonProperty("RABL") RABL("RABL"),
-        @JsonProperty("RACI") RACI("RACI"),
-        @JsonProperty("RAFC") RAFC("RAFC"),
-        @JsonProperty("RAIO") RAIO("RAIO"),
-        @JsonProperty("RALT") RALT("RALT"),
-        @JsonProperty("USOT") USOT("USOT")
+        RABD("RABD"),
+        RABL("RABL"),
+        RACI("RACI"),
+        RAFC("RAFC"),
+        RAIO("RAIO"),
+        RALT("RALT"),
+        USOT("USOT");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): AmountType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeRepayment'")
+            }
+        }
     }
 
 }

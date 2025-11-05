@@ -1,7 +1,9 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -18,13 +20,22 @@ import io.swagger.v3.oas.annotations.media.Schema
 * Rate type for overdraft fee/charge (where it is charged in terms of a rate rather than an amount)
 * Values: INBB,INFR,INGR,INLR,INNE,INOT
 */
-enum class OBInterestRateType1Code0(val value: kotlin.String) {
+enum class OBInterestRateType1Code0(@get:JsonValue val value: kotlin.String) {
 
-    @JsonProperty("INBB") INBB("INBB"),
-    @JsonProperty("INFR") INFR("INFR"),
-    @JsonProperty("INGR") INGR("INGR"),
-    @JsonProperty("INLR") INLR("INLR"),
-    @JsonProperty("INNE") INNE("INNE"),
-    @JsonProperty("INOT") INOT("INOT")
+    INBB("INBB"),
+    INFR("INFR"),
+    INGR("INGR"),
+    INLR("INLR"),
+    INNE("INNE"),
+    INOT("INOT");
+
+    companion object {
+        @JvmStatic
+        @JsonCreator
+        fun forValue(value: kotlin.String): OBInterestRateType1Code0 {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBInterestRateType1Code0'")
+        }
+    }
 }
 

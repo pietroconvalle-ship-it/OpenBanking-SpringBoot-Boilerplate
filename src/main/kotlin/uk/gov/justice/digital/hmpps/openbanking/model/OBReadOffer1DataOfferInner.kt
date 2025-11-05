@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
+import java.util.Locale
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import uk.gov.justice.digital.hmpps.openbanking.model.OBReadOffer1DataOfferInnerAmount
@@ -82,13 +84,22 @@ data class OBReadOffer1DataOfferInner(
     * Offer type, in a coded form. For a full list of values refer to `OBExternalOfferType1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
     * Values: BalanceTransfer,LimitIncrease,MoneyTransfer,Other,PromotionalRate
     */
-    enum class OfferType(val value: kotlin.String) {
+    enum class OfferType(@get:JsonValue val value: kotlin.String) {
 
-        @JsonProperty("BalanceTransfer") BalanceTransfer("BalanceTransfer"),
-        @JsonProperty("LimitIncrease") LimitIncrease("LimitIncrease"),
-        @JsonProperty("MoneyTransfer") MoneyTransfer("MoneyTransfer"),
-        @JsonProperty("Other") Other("Other"),
-        @JsonProperty("PromotionalRate") PromotionalRate("PromotionalRate")
+        BalanceTransfer("BalanceTransfer"),
+        LimitIncrease("LimitIncrease"),
+        MoneyTransfer("MoneyTransfer"),
+        Other("Other"),
+        PromotionalRate("PromotionalRate");
+
+        companion object {
+            @JvmStatic
+            @JsonCreator
+            fun forValue(value: kotlin.String): OfferType {
+                return values().firstOrNull{it -> it.value == value}
+                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadOffer1DataOfferInner'")
+            }
+        }
     }
 
 }
