@@ -2,7 +2,7 @@
 
 generate:
 	openapi-generator generate \
-		-i OpenApiV4Spec/openbankingmerged.swagger.json \
+		-i OpenApiSpec/openbankingmerged.swagger.json \
 		-g kotlin-spring \
 		-o . \
 		--api-package uk.gov.justice.digital.hmpps.openbanking.api \
