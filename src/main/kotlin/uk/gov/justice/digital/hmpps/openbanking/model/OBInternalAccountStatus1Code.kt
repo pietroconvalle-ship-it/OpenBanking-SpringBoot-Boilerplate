@@ -1,20 +1,7 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
-import java.util.Locale
-import java.util.Objects
-import com.fasterxml.jackson.annotation.JsonValue
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import jakarta.validation.constraints.DecimalMax
-import jakarta.validation.constraints.DecimalMin
-import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.Max
-import jakarta.validation.constraints.Min
-import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Pattern
-import jakarta.validation.constraints.Size
-import jakarta.validation.Valid
-import io.swagger.v3.oas.annotations.media.Schema
+import com.fasterxml.jackson.annotation.JsonValue
 
 /**
 * Specifies the status of account resource in code form. <br /> For a full list of enumeration values refer to `OBInternalAccountStatus1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
@@ -22,19 +9,17 @@ import io.swagger.v3.oas.annotations.media.Schema
 */
 enum class OBInternalAccountStatus1Code(@get:JsonValue val value: kotlin.String) {
 
-    Deleted("Deleted"),
-    Disabled("Disabled"),
-    Enabled("Enabled"),
-    Pending("Pending"),
-    ProForma("ProForma");
+  Deleted("Deleted"),
+  Disabled("Disabled"),
+  Enabled("Enabled"),
+  Pending("Pending"),
+  ProForma("ProForma"),
+  ;
 
-    companion object {
-        @JvmStatic
-        @JsonCreator
-        fun forValue(value: kotlin.String): OBInternalAccountStatus1Code {
-                return values().firstOrNull{it -> it.value == value}
-                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBInternalAccountStatus1Code'")
-        }
-    }
+  companion object {
+    @JvmStatic
+    @JsonCreator
+    fun forValue(value: kotlin.String): OBInternalAccountStatus1Code = values().firstOrNull { it -> it.value == value }
+      ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBInternalAccountStatus1Code'")
+  }
 }
-

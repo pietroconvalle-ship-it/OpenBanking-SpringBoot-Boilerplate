@@ -1,20 +1,7 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
-import java.util.Locale
-import java.util.Objects
-import com.fasterxml.jackson.annotation.JsonValue
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import jakarta.validation.constraints.DecimalMax
-import jakarta.validation.constraints.DecimalMin
-import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.Max
-import jakarta.validation.constraints.Min
-import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Pattern
-import jakarta.validation.constraints.Size
-import jakarta.validation.Valid
-import io.swagger.v3.oas.annotations.media.Schema
+import com.fasterxml.jackson.annotation.JsonValue
 
 /**
 * Enumeration of codes that outlines the type of purpose behind a transaction, payment or risk.   For all enum values see `ExternalCategoryPurpose1Code` [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
@@ -22,58 +9,56 @@ import io.swagger.v3.oas.annotations.media.Schema
 */
 enum class ExternalCategoryPurpose1Code1(@get:JsonValue val value: kotlin.String) {
 
-    BONU("BONU"),
-    CASH("CASH"),
-    CBLK("CBLK"),
-    CCRD("CCRD"),
-    CGWV("CGWV"),
-    CIPC("CIPC"),
-    CONC("CONC"),
-    CORT("CORT"),
-    DCRD("DCRD"),
-    DIVI("DIVI"),
-    DVPM("DVPM"),
-    EPAY("EPAY"),
-    FCDT("FCDT"),
-    FCIN("FCIN"),
-    FCOL("FCOL"),
-    GOVT("GOVT"),
-    GP2P("GP2P"),
-    HEDG("HEDG"),
-    ICCP("ICCP"),
-    IDCP("IDCP"),
-    INTC("INTC"),
-    INTE("INTE"),
-    LBOX("LBOX"),
-    LOAN("LOAN"),
-    MP2B("MP2B"),
-    MP2P("MP2P"),
-    OTHR("OTHR"),
-    PENS("PENS"),
-    RPRE("RPRE"),
-    RRCT("RRCT"),
-    RVPM("RVPM"),
-    SALA("SALA"),
-    SECU("SECU"),
-    SSBE("SSBE"),
-    SUPP("SUPP"),
-    SWEP("SWEP"),
-    TAXS("TAXS"),
-    TOPG("TOPG"),
-    TRAD("TRAD"),
-    TREA("TREA"),
-    VATX("VATX"),
-    VOST("VOST"),
-    WHLD("WHLD"),
-    ZABA("ZABA");
+  BONU("BONU"),
+  CASH("CASH"),
+  CBLK("CBLK"),
+  CCRD("CCRD"),
+  CGWV("CGWV"),
+  CIPC("CIPC"),
+  CONC("CONC"),
+  CORT("CORT"),
+  DCRD("DCRD"),
+  DIVI("DIVI"),
+  DVPM("DVPM"),
+  EPAY("EPAY"),
+  FCDT("FCDT"),
+  FCIN("FCIN"),
+  FCOL("FCOL"),
+  GOVT("GOVT"),
+  GP2P("GP2P"),
+  HEDG("HEDG"),
+  ICCP("ICCP"),
+  IDCP("IDCP"),
+  INTC("INTC"),
+  INTE("INTE"),
+  LBOX("LBOX"),
+  LOAN("LOAN"),
+  MP2B("MP2B"),
+  MP2P("MP2P"),
+  OTHR("OTHR"),
+  PENS("PENS"),
+  RPRE("RPRE"),
+  RRCT("RRCT"),
+  RVPM("RVPM"),
+  SALA("SALA"),
+  SECU("SECU"),
+  SSBE("SSBE"),
+  SUPP("SUPP"),
+  SWEP("SWEP"),
+  TAXS("TAXS"),
+  TOPG("TOPG"),
+  TRAD("TRAD"),
+  TREA("TREA"),
+  VATX("VATX"),
+  VOST("VOST"),
+  WHLD("WHLD"),
+  ZABA("ZABA"),
+  ;
 
-    companion object {
-        @JvmStatic
-        @JsonCreator
-        fun forValue(value: kotlin.String): ExternalCategoryPurpose1Code1 {
-                return values().firstOrNull{it -> it.value == value}
-                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'ExternalCategoryPurpose1Code1'")
-        }
-    }
+  companion object {
+    @JvmStatic
+    @JsonCreator
+    fun forValue(value: kotlin.String): ExternalCategoryPurpose1Code1 = values().firstOrNull { it -> it.value == value }
+      ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'ExternalCategoryPurpose1Code1'")
+  }
 }
-

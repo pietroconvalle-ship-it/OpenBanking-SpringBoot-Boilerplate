@@ -1,20 +1,7 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
-import java.util.Locale
-import java.util.Objects
-import com.fasterxml.jackson.annotation.JsonValue
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import jakarta.validation.constraints.DecimalMax
-import jakarta.validation.constraints.DecimalMin
-import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.Max
-import jakarta.validation.constraints.Min
-import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Pattern
-import jakarta.validation.constraints.Size
-import jakarta.validation.Valid
-import io.swagger.v3.oas.annotations.media.Schema
+import com.fasterxml.jackson.annotation.JsonValue
 
 /**
 * `OBFrequency6Code` on External Codset Repo
@@ -22,31 +9,29 @@ import io.swagger.v3.oas.annotations.media.Schema
 */
 enum class OBFrequency6Code1(@get:JsonValue val value: kotlin.String) {
 
-    ADHO("ADHO"),
-    YEAR("YEAR"),
-    DAIL("DAIL"),
-    FRTN("FRTN"),
-    INDA("INDA"),
-    MNTH("MNTH"),
-    QURT("QURT"),
-    MIAN("MIAN"),
-    WEEK("WEEK"),
-    WEEK2("WEEK"),
-    WODL("WODL"),
-    FOWK("FOWK"),
-    TWMH("TWMH"),
-    FOMH("FOMH"),
-    FIMH("FIMH"),
-    ALMH("ALMH"),
-    NONE("NONE");
+  ADHO("ADHO"),
+  YEAR("YEAR"),
+  DAIL("DAIL"),
+  FRTN("FRTN"),
+  INDA("INDA"),
+  MNTH("MNTH"),
+  QURT("QURT"),
+  MIAN("MIAN"),
+  WEEK("WEEK"),
+  WEEK2("WEEK"),
+  WODL("WODL"),
+  FOWK("FOWK"),
+  TWMH("TWMH"),
+  FOMH("FOMH"),
+  FIMH("FIMH"),
+  ALMH("ALMH"),
+  NONE("NONE"),
+  ;
 
-    companion object {
-        @JvmStatic
-        @JsonCreator
-        fun forValue(value: kotlin.String): OBFrequency6Code1 {
-                return values().firstOrNull{it -> it.value == value}
-                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBFrequency6Code1'")
-        }
-    }
+  companion object {
+    @JvmStatic
+    @JsonCreator
+    fun forValue(value: kotlin.String): OBFrequency6Code1 = values().firstOrNull { it -> it.value == value }
+      ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBFrequency6Code1'")
+  }
 }
-
