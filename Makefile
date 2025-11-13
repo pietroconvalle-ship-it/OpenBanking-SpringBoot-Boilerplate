@@ -9,8 +9,8 @@ generate:
 		--model-package uk.gov.justice.digital.hmpps.openbanking.model \
 		--additional-properties useSpringBoot3=true,gradleBuildFile=false,basePackage=uk.gov.justice.digital.hmpps.openbanking,configPackage=uk.gov.justice.digital.hmpps.openbanking.config
 
-build:
-	./gradlew build
+compile:
+	./gradlew build -x test -x ktlintMainSourceSetCheck
 
-run: build
-	./gradlew bootRun
+run: compile
+	SPRING_PROFILES_ACTIVE=dev ./gradlew bootRun
