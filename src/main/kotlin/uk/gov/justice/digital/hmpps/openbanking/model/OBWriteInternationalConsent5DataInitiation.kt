@@ -1,10 +1,12 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
-import java.util.Locale
-import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
+import io.swagger.v3.oas.annotations.media.Schema
+import jakarta.validation.Valid
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.Size
 import uk.gov.justice.digital.hmpps.openbanking.model.OBInternalChargeBearerType1Code
 import uk.gov.justice.digital.hmpps.openbanking.model.OBRegulatoryReporting1
 import uk.gov.justice.digital.hmpps.openbanking.model.OBRemittanceInformation21
@@ -16,135 +18,122 @@ import uk.gov.justice.digital.hmpps.openbanking.model.OBWriteDomestic2DataInitia
 import uk.gov.justice.digital.hmpps.openbanking.model.OBWriteDomestic2DataInitiationInstructedAmount
 import uk.gov.justice.digital.hmpps.openbanking.model.OBWriteInternational3DataInitiationExchangeRateInformation
 import uk.gov.justice.digital.hmpps.openbanking.model.OBWriteInternationalConsent5DataInitiationCreditor
-import jakarta.validation.constraints.DecimalMax
-import jakarta.validation.constraints.DecimalMin
-import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.Max
-import jakarta.validation.constraints.Min
-import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Pattern
-import jakarta.validation.constraints.Size
-import jakarta.validation.Valid
-import io.swagger.v3.oas.annotations.media.Schema
 
 /**
  * The Initiation payload is sent by the initiating party to the ASPSP. It is used to request movement of funds from the debtor account to a creditor for a single international payment.
  * @param instructionIdentification Unique identification as assigned by an instructing party for an instructed party to unambiguously identify the instruction. Usage: the  instruction identification is a point to point reference that can be used between the instructing party and the instructed party to refer to the individual instruction. It can be included in several messages related to the instruction.
  * @param endToEndIdentification Unique identification assigned by the initiating party to unambiguously identify the transaction. This identification is passed on, unchanged, throughout the entire end-to-end chain. Usage: The end-to-end identification can be used for reconciliation or to link tasks relating to the transaction. It can be included in several messages related to the transaction. OB: The Faster Payments Scheme can only access 31 characters for the EndToEndIdentification field.
  * @param currencyOfTransfer Specifies the currency of the to be transferred amount, which is different from the currency of the debtor's account.
- * @param instructedAmount 
- * @param creditorAccount 
+ * @param instructedAmount
+ * @param creditorAccount
  * @param localInstrument User community specific instrument. Usage: This element is used to specify a local instrument, local clearing option and/or further qualify the service or service level. For a full list of values refer to `OBInternalLocalInstrument1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)
  * @param instructionPriority Indicator of the urgency or order of importance that the instructing party would like the instructed party to apply to the processing of the instruction.
  * @param extendedPurpose Specifies the purpose of an international payment, when there is no corresponding 4 character code available in the ISO20022 list of Purpose Codes.
- * @param chargeBearer 
+ * @param chargeBearer
  * @param destinationCountryCode Country in which Credit Account is domiciled. Code to identify a country, a dependency, or another area of particular geopolitical interest, on the basis of country names obtained from the United Nations (ISO 3166, Alpha-2 code).
- * @param exchangeRateInformation 
- * @param debtorAccount 
- * @param creditor 
- * @param creditorAgent 
- * @param ultimateCreditor 
- * @param ultimateDebtor 
- * @param regulatoryReporting 
- * @param remittanceInformation 
+ * @param exchangeRateInformation
+ * @param debtorAccount
+ * @param creditor
+ * @param creditorAgent
+ * @param ultimateCreditor
+ * @param ultimateDebtor
+ * @param regulatoryReporting
+ * @param remittanceInformation
  * @param supplementaryData Additional information that can not be captured in the structured fields and/or any other specific block.
  */
 data class OBWriteInternationalConsent5DataInitiation(
 
-    @get:Size(min=1,max=35)
-    @Schema(example = "null", required = true, description = "Unique identification as assigned by an instructing party for an instructed party to unambiguously identify the instruction. Usage: the  instruction identification is a point to point reference that can be used between the instructing party and the instructed party to refer to the individual instruction. It can be included in several messages related to the instruction.")
-    @get:JsonProperty("InstructionIdentification", required = true) val instructionIdentification: kotlin.String,
+  @get:Size(min = 1, max = 35)
+  @Schema(example = "null", required = true, description = "Unique identification as assigned by an instructing party for an instructed party to unambiguously identify the instruction. Usage: the  instruction identification is a point to point reference that can be used between the instructing party and the instructed party to refer to the individual instruction. It can be included in several messages related to the instruction.")
+  @get:JsonProperty("InstructionIdentification", required = true) val instructionIdentification: kotlin.String,
 
-    @get:Size(min=1,max=35)
-    @Schema(example = "null", required = true, description = "Unique identification assigned by the initiating party to unambiguously identify the transaction. This identification is passed on, unchanged, throughout the entire end-to-end chain. Usage: The end-to-end identification can be used for reconciliation or to link tasks relating to the transaction. It can be included in several messages related to the transaction. OB: The Faster Payments Scheme can only access 31 characters for the EndToEndIdentification field.")
-    @get:JsonProperty("EndToEndIdentification", required = true) val endToEndIdentification: kotlin.String,
+  @get:Size(min = 1, max = 35)
+  @Schema(example = "null", required = true, description = "Unique identification assigned by the initiating party to unambiguously identify the transaction. This identification is passed on, unchanged, throughout the entire end-to-end chain. Usage: The end-to-end identification can be used for reconciliation or to link tasks relating to the transaction. It can be included in several messages related to the transaction. OB: The Faster Payments Scheme can only access 31 characters for the EndToEndIdentification field.")
+  @get:JsonProperty("EndToEndIdentification", required = true) val endToEndIdentification: kotlin.String,
 
-    @get:Pattern(regexp="^[A-Z]{3,3}$")
-    @Schema(example = "null", required = true, description = "Specifies the currency of the to be transferred amount, which is different from the currency of the debtor's account.")
-    @get:JsonProperty("CurrencyOfTransfer", required = true) val currencyOfTransfer: kotlin.String,
+  @get:Pattern(regexp = "^[A-Z]{3,3}$")
+  @Schema(example = "null", required = true, description = "Specifies the currency of the to be transferred amount, which is different from the currency of the debtor's account.")
+  @get:JsonProperty("CurrencyOfTransfer", required = true) val currencyOfTransfer: kotlin.String,
 
-    @field:Valid
-    @Schema(example = "null", required = true, description = "")
-    @get:JsonProperty("InstructedAmount", required = true) val instructedAmount: OBWriteDomestic2DataInitiationInstructedAmount,
+  @field:Valid
+  @Schema(example = "null", required = true, description = "")
+  @get:JsonProperty("InstructedAmount", required = true) val instructedAmount: OBWriteDomestic2DataInitiationInstructedAmount,
 
-    @field:Valid
-    @Schema(example = "null", required = true, description = "")
-    @get:JsonProperty("CreditorAccount", required = true) val creditorAccount: OBWriteDomestic2DataInitiationCreditorAccount,
+  @field:Valid
+  @Schema(example = "null", required = true, description = "")
+  @get:JsonProperty("CreditorAccount", required = true) val creditorAccount: OBWriteDomestic2DataInitiationCreditorAccount,
 
-    @Schema(example = "null", description = "User community specific instrument. Usage: This element is used to specify a local instrument, local clearing option and/or further qualify the service or service level. For a full list of values refer to `OBInternalLocalInstrument1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)")
-    @get:JsonProperty("LocalInstrument") val localInstrument: kotlin.String? = null,
+  @Schema(example = "null", description = "User community specific instrument. Usage: This element is used to specify a local instrument, local clearing option and/or further qualify the service or service level. For a full list of values refer to `OBInternalLocalInstrument1Code` in *OB_Internal_CodeSet* [here](https://github.com/OpenBankingUK/External_Internal_CodeSets)")
+  @get:JsonProperty("LocalInstrument") val localInstrument: kotlin.String? = null,
 
-    @Schema(example = "null", description = "Indicator of the urgency or order of importance that the instructing party would like the instructed party to apply to the processing of the instruction.")
-    @get:JsonProperty("InstructionPriority") val instructionPriority: OBWriteInternationalConsent5DataInitiation.InstructionPriority? = null,
+  @Schema(example = "null", description = "Indicator of the urgency or order of importance that the instructing party would like the instructed party to apply to the processing of the instruction.")
+  @get:JsonProperty("InstructionPriority") val instructionPriority: OBWriteInternationalConsent5DataInitiation.InstructionPriority? = null,
 
-    @get:Size(min=1,max=140)
-    @Schema(example = "null", description = "Specifies the purpose of an international payment, when there is no corresponding 4 character code available in the ISO20022 list of Purpose Codes.")
-    @get:JsonProperty("ExtendedPurpose") val extendedPurpose: kotlin.String? = null,
+  @get:Size(min = 1, max = 140)
+  @Schema(example = "null", description = "Specifies the purpose of an international payment, when there is no corresponding 4 character code available in the ISO20022 list of Purpose Codes.")
+  @get:JsonProperty("ExtendedPurpose") val extendedPurpose: kotlin.String? = null,
 
-    @field:Valid
-    @Schema(example = "null", description = "")
-    @get:JsonProperty("ChargeBearer") val chargeBearer: OBInternalChargeBearerType1Code? = null,
+  @field:Valid
+  @Schema(example = "null", description = "")
+  @get:JsonProperty("ChargeBearer") val chargeBearer: OBInternalChargeBearerType1Code? = null,
 
-    @get:Pattern(regexp="[A-Z]{2,2}")
-    @Schema(example = "null", description = "Country in which Credit Account is domiciled. Code to identify a country, a dependency, or another area of particular geopolitical interest, on the basis of country names obtained from the United Nations (ISO 3166, Alpha-2 code).")
-    @get:JsonProperty("DestinationCountryCode") val destinationCountryCode: kotlin.String? = null,
+  @get:Pattern(regexp = "[A-Z]{2,2}")
+  @Schema(example = "null", description = "Country in which Credit Account is domiciled. Code to identify a country, a dependency, or another area of particular geopolitical interest, on the basis of country names obtained from the United Nations (ISO 3166, Alpha-2 code).")
+  @get:JsonProperty("DestinationCountryCode") val destinationCountryCode: kotlin.String? = null,
 
-    @field:Valid
-    @Schema(example = "null", description = "")
-    @get:JsonProperty("ExchangeRateInformation") val exchangeRateInformation: OBWriteInternational3DataInitiationExchangeRateInformation? = null,
+  @field:Valid
+  @Schema(example = "null", description = "")
+  @get:JsonProperty("ExchangeRateInformation") val exchangeRateInformation: OBWriteInternational3DataInitiationExchangeRateInformation? = null,
 
-    @field:Valid
-    @Schema(example = "null", description = "")
-    @get:JsonProperty("DebtorAccount") val debtorAccount: OBWriteDomestic2DataInitiationDebtorAccount? = null,
+  @field:Valid
+  @Schema(example = "null", description = "")
+  @get:JsonProperty("DebtorAccount") val debtorAccount: OBWriteDomestic2DataInitiationDebtorAccount? = null,
 
-    @field:Valid
-    @Schema(example = "null", description = "")
-    @get:JsonProperty("Creditor") val creditor: OBWriteInternationalConsent5DataInitiationCreditor? = null,
+  @field:Valid
+  @Schema(example = "null", description = "")
+  @get:JsonProperty("Creditor") val creditor: OBWriteInternationalConsent5DataInitiationCreditor? = null,
 
-    @field:Valid
-    @Schema(example = "null", description = "")
-    @get:JsonProperty("CreditorAgent") val creditorAgent: OBWriteDomestic2DataInitiationCreditorAgent? = null,
+  @field:Valid
+  @Schema(example = "null", description = "")
+  @get:JsonProperty("CreditorAgent") val creditorAgent: OBWriteDomestic2DataInitiationCreditorAgent? = null,
 
-    @field:Valid
-    @Schema(example = "null", description = "")
-    @get:JsonProperty("UltimateCreditor") val ultimateCreditor: OBUltimateCreditor11? = null,
+  @field:Valid
+  @Schema(example = "null", description = "")
+  @get:JsonProperty("UltimateCreditor") val ultimateCreditor: OBUltimateCreditor11? = null,
 
-    @field:Valid
-    @Schema(example = "null", description = "")
-    @get:JsonProperty("UltimateDebtor") val ultimateDebtor: OBUltimateDebtor11? = null,
+  @field:Valid
+  @Schema(example = "null", description = "")
+  @get:JsonProperty("UltimateDebtor") val ultimateDebtor: OBUltimateDebtor11? = null,
 
-    @field:Valid
-    @get:Size(max=10)
-    @Schema(example = "null", description = "")
-    @get:JsonProperty("RegulatoryReporting") val regulatoryReporting: kotlin.collections.List<OBRegulatoryReporting1>? = null,
+  @field:Valid
+  @get:Size(max = 10)
+  @Schema(example = "null", description = "")
+  @get:JsonProperty("RegulatoryReporting") val regulatoryReporting: kotlin.collections.List<OBRegulatoryReporting1>? = null,
 
-    @field:Valid
-    @Schema(example = "null", description = "")
-    @get:JsonProperty("RemittanceInformation") val remittanceInformation: OBRemittanceInformation21? = null,
+  @field:Valid
+  @Schema(example = "null", description = "")
+  @get:JsonProperty("RemittanceInformation") val remittanceInformation: OBRemittanceInformation21? = null,
 
-    @field:Valid
-    @Schema(example = "null", description = "Additional information that can not be captured in the structured fields and/or any other specific block.")
-    @get:JsonProperty("SupplementaryData") val supplementaryData: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+  @field:Valid
+  @Schema(example = "null", description = "Additional information that can not be captured in the structured fields and/or any other specific block.")
+  @get:JsonProperty("SupplementaryData") val supplementaryData: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 ) {
 
-    /**
-    * Indicator of the urgency or order of importance that the instructing party would like the instructed party to apply to the processing of the instruction.
-    * Values: Normal,Urgent
-    */
-    enum class InstructionPriority(@get:JsonValue val value: kotlin.String) {
+  /**
+   * Indicator of the urgency or order of importance that the instructing party would like the instructed party to apply to the processing of the instruction.
+   * Values: Normal,Urgent
+   */
+  enum class InstructionPriority(@get:JsonValue val value: kotlin.String) {
 
-        Normal("Normal"),
-        Urgent("Urgent");
+    Normal("Normal"),
+    Urgent("Urgent"),
+    ;
 
-        companion object {
-            @JvmStatic
-            @JsonCreator
-            fun forValue(value: kotlin.String): InstructionPriority {
-                return values().firstOrNull{it -> it.value == value}
-                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBWriteInternationalConsent5DataInitiation'")
-            }
-        }
+    companion object {
+      @JvmStatic
+      @JsonCreator
+      fun forValue(value: kotlin.String): InstructionPriority = values().firstOrNull { it -> it.value == value }
+        ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBWriteInternationalConsent5DataInitiation'")
     }
-
+  }
 }
-

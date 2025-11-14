@@ -1,30 +1,17 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
-import java.util.Locale
-import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
-import uk.gov.justice.digital.hmpps.openbanking.model.OBReadProduct2DataProductInner
-import jakarta.validation.constraints.DecimalMax
-import jakarta.validation.constraints.DecimalMin
-import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.Max
-import jakarta.validation.constraints.Min
-import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Pattern
-import jakarta.validation.constraints.Size
-import jakarta.validation.Valid
 import io.swagger.v3.oas.annotations.media.Schema
+import jakarta.validation.Valid
+import uk.gov.justice.digital.hmpps.openbanking.model.OBReadProduct2DataProductInner
 
 /**
  * Aligning with the read write specs structure.
- * @param product 
+ * @param product
  */
 data class OBReadProduct2Data(
 
-    @field:Valid
-    @Schema(example = "null", description = "")
-    @get:JsonProperty("Product") val product: kotlin.collections.List<OBReadProduct2DataProductInner>? = null
-) {
-
-}
-
+  @field:Valid
+  @Schema(example = "null", description = "")
+  @get:JsonProperty("Product") val product: kotlin.collections.List<OBReadProduct2DataProductInner>? = null,
+)

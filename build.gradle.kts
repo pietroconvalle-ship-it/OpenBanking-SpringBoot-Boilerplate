@@ -1,45 +1,49 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-group = "org.openapitools"
-version = "1.0.0"
-java.sourceCompatibility = JavaVersion.VERSION_21
-
-repositories {
-    mavenCentral()
-    maven { url = uri("https://repo.spring.io/milestone") }
-}
-
-tasks.withType<KotlinCompile>().configureEach {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
-    }
-}
-
 plugins {
-    val kotlinVersion = "2.2.21"
-    id("org.jetbrains.kotlin.jvm") version kotlinVersion
-    id("org.jetbrains.kotlin.plugin.jpa") version kotlinVersion
-    id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
-    id("org.springframework.boot") version "3.5.7"
-    id("io.spring.dependency-management") version "1.0.15.RELEASE"
+  id("uk.gov.justice.hmpps.gradle-spring-boot") version "9.1.4"
+  kotlin("plugin.spring") version "2.2.21"
+}
+
+configurations {
+  testImplementation { exclude(group = "org.junit.vintage") }
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13")
+  implementation("uk.gov.justice.service.hmpps:hmpps-kotlin-spring-boot-starter:1.7.0")
+  implementation("org.springframework.boot:spring-boot-starter-webflux")
+  implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13")
 
-    implementation("com.google.code.findbugs:jsr305:3.0.2")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("jakarta.validation:jakarta.validation-api")
-    implementation("jakarta.annotation:jakarta.annotation-api:2.1.0")
+  testImplementation("uk.gov.justice.service.hmpps:hmpps-kotlin-spring-boot-starter-test:1.8.1")
+  testImplementation("org.wiremock:wiremock-standalone:3.13.1")
+  testImplementation("io.swagger.parser.v3:swagger-parser:2.1.35") {
+    exclude(group = "io.swagger.core.v3")
+  }
+}
 
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude(module = "junit")
+kotlin {
+  jvmToolchain(21)
+}
+
+tasks {
+  register<Test>("unitTest") {
+    filter {
+      excludeTestsMatching("uk.gov.justice.digital.hmpps.prisonerfinancepocapi.integration*")
     }
+  }
+
+  register<Test>("integrationTest") {
+    description = "Runs the integration tests, make sure that dependencies are available first by running `make serve`."
+    testClassesDirs = sourceSets["test"].output.classesDirs
+    classpath = sourceSets["main"].output + configurations["testRuntimeClasspath"] + sourceSets["test"].output
+    filter {
+      includeTestsMatching("uk.gov.justice.digital.hmpps.prisonerfinancepocapi.integration*")
+    }
+  }
+
+  withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    compilerOptions.jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
+  }
+
+  testlogger {
+    theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA
+  }
 }

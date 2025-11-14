@@ -1,21 +1,12 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
-import java.util.Locale
-import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
-import uk.gov.justice.digital.hmpps.openbanking.model.TierBandInner
-import jakarta.validation.constraints.DecimalMax
-import jakarta.validation.constraints.DecimalMin
-import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.Max
-import jakarta.validation.constraints.Min
-import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Pattern
-import jakarta.validation.constraints.Size
-import jakarta.validation.Valid
 import io.swagger.v3.oas.annotations.media.Schema
+import jakarta.validation.Valid
+import jakarta.validation.constraints.Size
+import uk.gov.justice.digital.hmpps.openbanking.model.TierBandInner
 
 /**
  * The group of tiers or bands for which credit interest can be applied.
@@ -27,81 +18,76 @@ import io.swagger.v3.oas.annotations.media.Schema
  */
 data class TierBandSetInner(
 
-    @Schema(example = "null", required = true, description = "The methodology of how credit interest is paid/applied. It can be:-  1. Banded Interest rates are banded. i.e. Increasing rate on whole balance as balance increases.  2. Tiered Interest rates are tiered. i.e. increasing rate for each tier as balance increases, but interest paid on tier fixed for that tier and not on whole balance.  3. Whole The same interest rate is applied irrespective of the BCA balance")
-    @get:JsonProperty("TierBandMethod", required = true) val tierBandMethod: TierBandSetInner.TierBandMethod,
+  @Schema(example = "null", required = true, description = "The methodology of how credit interest is paid/applied. It can be:-  1. Banded Interest rates are banded. i.e. Increasing rate on whole balance as balance increases.  2. Tiered Interest rates are tiered. i.e. increasing rate for each tier as balance increases, but interest paid on tier fixed for that tier and not on whole balance.  3. Whole The same interest rate is applied irrespective of the BCA balance")
+  @get:JsonProperty("TierBandMethod", required = true) val tierBandMethod: TierBandSetInner.TierBandMethod,
 
-    @Schema(example = "null", required = true, description = "Describes whether accrued interest is payable only to the BCA or to another bank account")
-    @get:JsonProperty("Destination", required = true) val destination: TierBandSetInner.Destination,
+  @Schema(example = "null", required = true, description = "Describes whether accrued interest is payable only to the BCA or to another bank account")
+  @get:JsonProperty("Destination", required = true) val destination: TierBandSetInner.Destination,
 
-    @field:Valid
-    @get:Size(min=1)
-    @Schema(example = "null", required = true, description = "Tier Band Details")
-    @get:JsonProperty("TierBand", required = true) val tierBand: kotlin.collections.List<TierBandInner>,
+  @field:Valid
+  @get:Size(min = 1)
+  @Schema(example = "null", required = true, description = "Tier Band Details")
+  @get:JsonProperty("TierBand", required = true) val tierBand: kotlin.collections.List<TierBandInner>,
 
-    @Schema(example = "null", description = "Methods of calculating interest")
-    @get:JsonProperty("CalculationMethod") val calculationMethod: TierBandSetInner.CalculationMethod? = null,
+  @Schema(example = "null", description = "Methods of calculating interest")
+  @get:JsonProperty("CalculationMethod") val calculationMethod: TierBandSetInner.CalculationMethod? = null,
 
-    @Schema(example = "null", description = "Optional additional notes to supplement the Tier Band Set details")
-    @get:JsonProperty("Notes") val notes: kotlin.collections.List<kotlin.String>? = null
+  @Schema(example = "null", description = "Optional additional notes to supplement the Tier Band Set details")
+  @get:JsonProperty("Notes") val notes: kotlin.collections.List<kotlin.String>? = null,
 ) {
 
-    /**
-    * The methodology of how credit interest is paid/applied. It can be:-  1. Banded Interest rates are banded. i.e. Increasing rate on whole balance as balance increases.  2. Tiered Interest rates are tiered. i.e. increasing rate for each tier as balance increases, but interest paid on tier fixed for that tier and not on whole balance.  3. Whole The same interest rate is applied irrespective of the BCA balance
-    * Values: Banded,Tiered,Whole
-    */
-    enum class TierBandMethod(@get:JsonValue val value: kotlin.String) {
+  /**
+   * The methodology of how credit interest is paid/applied. It can be:-  1. Banded Interest rates are banded. i.e. Increasing rate on whole balance as balance increases.  2. Tiered Interest rates are tiered. i.e. increasing rate for each tier as balance increases, but interest paid on tier fixed for that tier and not on whole balance.  3. Whole The same interest rate is applied irrespective of the BCA balance
+   * Values: Banded,Tiered,Whole
+   */
+  enum class TierBandMethod(@get:JsonValue val value: kotlin.String) {
 
-        Banded("Banded"),
-        Tiered("Tiered"),
-        Whole("Whole");
+    Banded("Banded"),
+    Tiered("Tiered"),
+    Whole("Whole"),
+    ;
 
-        companion object {
-            @JvmStatic
-            @JsonCreator
-            fun forValue(value: kotlin.String): TierBandMethod {
-                return values().firstOrNull{it -> it.value == value}
-                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandSetInner'")
-            }
-        }
+    companion object {
+      @JvmStatic
+      @JsonCreator
+      fun forValue(value: kotlin.String): TierBandMethod = values().firstOrNull { it -> it.value == value }
+        ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandSetInner'")
     }
+  }
 
-    /**
-    * Describes whether accrued interest is payable only to the BCA or to another bank account
-    * Values: PayAway,SelfCredit
-    */
-    enum class Destination(@get:JsonValue val value: kotlin.String) {
+  /**
+   * Describes whether accrued interest is payable only to the BCA or to another bank account
+   * Values: PayAway,SelfCredit
+   */
+  enum class Destination(@get:JsonValue val value: kotlin.String) {
 
-        PayAway("PayAway"),
-        SelfCredit("SelfCredit");
+    PayAway("PayAway"),
+    SelfCredit("SelfCredit"),
+    ;
 
-        companion object {
-            @JvmStatic
-            @JsonCreator
-            fun forValue(value: kotlin.String): Destination {
-                return values().firstOrNull{it -> it.value == value}
-                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandSetInner'")
-            }
-        }
+    companion object {
+      @JvmStatic
+      @JsonCreator
+      fun forValue(value: kotlin.String): Destination = values().firstOrNull { it -> it.value == value }
+        ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandSetInner'")
     }
+  }
 
-    /**
-    * Methods of calculating interest
-    * Values: Compound,SimpleInterest
-    */
-    enum class CalculationMethod(@get:JsonValue val value: kotlin.String) {
+  /**
+   * Methods of calculating interest
+   * Values: Compound,SimpleInterest
+   */
+  enum class CalculationMethod(@get:JsonValue val value: kotlin.String) {
 
-        Compound("Compound"),
-        SimpleInterest("SimpleInterest");
+    Compound("Compound"),
+    SimpleInterest("SimpleInterest"),
+    ;
 
-        companion object {
-            @JvmStatic
-            @JsonCreator
-            fun forValue(value: kotlin.String): CalculationMethod {
-                return values().firstOrNull{it -> it.value == value}
-                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandSetInner'")
-            }
-        }
+    companion object {
+      @JvmStatic
+      @JsonCreator
+      fun forValue(value: kotlin.String): CalculationMethod = values().firstOrNull { it -> it.value == value }
+        ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'TierBandSetInner'")
     }
-
+  }
 }
-

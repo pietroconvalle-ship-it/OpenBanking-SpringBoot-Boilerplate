@@ -1,30 +1,22 @@
 package uk.gov.justice.digital.hmpps.openbanking.model
 
-import java.util.Locale
-import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
+import io.swagger.v3.oas.annotations.media.Schema
+import jakarta.validation.Valid
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.Size
 import uk.gov.justice.digital.hmpps.openbanking.model.OBInterestFixedVariableType1Code
 import uk.gov.justice.digital.hmpps.openbanking.model.OBOtherCodeType11
 import uk.gov.justice.digital.hmpps.openbanking.model.OBOtherCodeType12
 import uk.gov.justice.digital.hmpps.openbanking.model.OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInnerOtherBankInterestType
-import jakarta.validation.constraints.DecimalMax
-import jakarta.validation.constraints.DecimalMin
-import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.Max
-import jakarta.validation.constraints.Min
-import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Pattern
-import jakarta.validation.constraints.Size
-import jakarta.validation.Valid
-import io.swagger.v3.oas.annotations.media.Schema
 
 /**
  * Tier Band Details
  * @param tierValueMinimum Minimum deposit value for which the credit interest tier applies.
  * @param applicationFrequency How often is interest applied to the Product for this tier/band i.e. how often the financial institution pays accumulated interest to the customer's account.
- * @param fixedVariableInterestRateType 
+ * @param fixedVariableInterestRateType
  * @param AER The annual equivalent rate (AER) is interest that is calculated under the assumption that any interest paid is combined with the original balance and the next interest payment will be based on the slightly higher account balance. Overall, this means that interest can be compounded several times in a year depending on the number of times that interest payments are made.  Read more: Annual Equivalent Rate (AER) http://www.investopedia.com/terms/a/aer.asp#ixzz4gfR7IO1A
  * @param identification Unique and unambiguous identification of a  Tier Band for the Product.
  * @param tierValueMaximum Maximum deposit value for which the credit interest tier applies.
@@ -32,159 +24,153 @@ import io.swagger.v3.oas.annotations.media.Schema
  * @param depositInterestAppliedCoverage Amount on which Interest applied.
  * @param bankInterestRateType Interest rate types, other than AER, which financial institutions may use to describe the annual interest rate payable to the account holder's account.
  * @param bankInterestRate Bank Interest for the product
- * @param notes 
- * @param otherBankInterestType 
- * @param otherApplicationFrequency 
- * @param otherCalculationFrequency 
+ * @param notes
+ * @param otherBankInterestType
+ * @param otherApplicationFrequency
+ * @param otherCalculationFrequency
  */
 data class OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner(
 
-    @get:Pattern(regexp="^(-?\\d{1,14}){1}(\\.\\d{1,4}){0,1}$")
-    @Schema(example = "null", required = true, description = "Minimum deposit value for which the credit interest tier applies.")
-    @get:JsonProperty("TierValueMinimum", required = true) val tierValueMinimum: kotlin.String,
+  @get:Pattern(regexp = "^(-?\\d{1,14}){1}(\\.\\d{1,4}){0,1}$")
+  @Schema(example = "null", required = true, description = "Minimum deposit value for which the credit interest tier applies.")
+  @get:JsonProperty("TierValueMinimum", required = true) val tierValueMinimum: kotlin.String,
 
-    @Schema(example = "null", required = true, description = "How often is interest applied to the Product for this tier/band i.e. how often the financial institution pays accumulated interest to the customer's account.")
-    @get:JsonProperty("ApplicationFrequency", required = true) val applicationFrequency: OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner.ApplicationFrequency,
+  @Schema(example = "null", required = true, description = "How often is interest applied to the Product for this tier/band i.e. how often the financial institution pays accumulated interest to the customer's account.")
+  @get:JsonProperty("ApplicationFrequency", required = true) val applicationFrequency: OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner.ApplicationFrequency,
 
-    @field:Valid
-    @Schema(example = "null", required = true, description = "")
-    @get:JsonProperty("FixedVariableInterestRateType", required = true) val fixedVariableInterestRateType: OBInterestFixedVariableType1Code,
+  @field:Valid
+  @Schema(example = "null", required = true, description = "")
+  @get:JsonProperty("FixedVariableInterestRateType", required = true) val fixedVariableInterestRateType: OBInterestFixedVariableType1Code,
 
-    @get:Pattern(regexp="^(-?\\d{1,3}){1}(\\.\\d{1,4}){0,1}$")
-    @Schema(example = "null", required = true, description = "The annual equivalent rate (AER) is interest that is calculated under the assumption that any interest paid is combined with the original balance and the next interest payment will be based on the slightly higher account balance. Overall, this means that interest can be compounded several times in a year depending on the number of times that interest payments are made.  Read more: Annual Equivalent Rate (AER) http://www.investopedia.com/terms/a/aer.asp#ixzz4gfR7IO1A")
-    @get:JsonProperty("AER", required = true) val AER: kotlin.String,
+  @get:Pattern(regexp = "^(-?\\d{1,3}){1}(\\.\\d{1,4}){0,1}$")
+  @Schema(example = "null", required = true, description = "The annual equivalent rate (AER) is interest that is calculated under the assumption that any interest paid is combined with the original balance and the next interest payment will be based on the slightly higher account balance. Overall, this means that interest can be compounded several times in a year depending on the number of times that interest payments are made.  Read more: Annual Equivalent Rate (AER) http://www.investopedia.com/terms/a/aer.asp#ixzz4gfR7IO1A")
+  @get:JsonProperty("AER", required = true) val AER: kotlin.String,
 
-    @get:Size(min=1,max=35)
-    @Schema(example = "null", description = "Unique and unambiguous identification of a  Tier Band for the Product.")
-    @get:JsonProperty("Identification") val identification: kotlin.String? = null,
+  @get:Size(min = 1, max = 35)
+  @Schema(example = "null", description = "Unique and unambiguous identification of a  Tier Band for the Product.")
+  @get:JsonProperty("Identification") val identification: kotlin.String? = null,
 
-    @get:Pattern(regexp="^(-?\\d{1,14}){1}(\\.\\d{1,4}){0,1}$")
-    @Schema(example = "null", description = "Maximum deposit value for which the credit interest tier applies.")
-    @get:JsonProperty("TierValueMaximum") val tierValueMaximum: kotlin.String? = null,
+  @get:Pattern(regexp = "^(-?\\d{1,14}){1}(\\.\\d{1,4}){0,1}$")
+  @Schema(example = "null", description = "Maximum deposit value for which the credit interest tier applies.")
+  @get:JsonProperty("TierValueMaximum") val tierValueMaximum: kotlin.String? = null,
 
-    @Schema(example = "null", description = "How often is credit interest calculated for the account.")
-    @get:JsonProperty("CalculationFrequency") val calculationFrequency: OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner.CalculationFrequency? = null,
+  @Schema(example = "null", description = "How often is credit interest calculated for the account.")
+  @get:JsonProperty("CalculationFrequency") val calculationFrequency: OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner.CalculationFrequency? = null,
 
-    @Schema(example = "null", description = "Amount on which Interest applied.")
-    @get:JsonProperty("DepositInterestAppliedCoverage") val depositInterestAppliedCoverage: OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner.DepositInterestAppliedCoverage? = null,
+  @Schema(example = "null", description = "Amount on which Interest applied.")
+  @get:JsonProperty("DepositInterestAppliedCoverage") val depositInterestAppliedCoverage: OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner.DepositInterestAppliedCoverage? = null,
 
-    @Schema(example = "null", description = "Interest rate types, other than AER, which financial institutions may use to describe the annual interest rate payable to the account holder's account.")
-    @get:JsonProperty("BankInterestRateType") val bankInterestRateType: OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner.BankInterestRateType? = null,
+  @Schema(example = "null", description = "Interest rate types, other than AER, which financial institutions may use to describe the annual interest rate payable to the account holder's account.")
+  @get:JsonProperty("BankInterestRateType") val bankInterestRateType: OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner.BankInterestRateType? = null,
 
-    @get:Pattern(regexp="^(-?\\d{1,3}){1}(\\.\\d{1,4}){0,1}$")
-    @Schema(example = "null", description = "Bank Interest for the product")
-    @get:JsonProperty("BankInterestRate") val bankInterestRate: kotlin.String? = null,
+  @get:Pattern(regexp = "^(-?\\d{1,3}){1}(\\.\\d{1,4}){0,1}$")
+  @Schema(example = "null", description = "Bank Interest for the product")
+  @get:JsonProperty("BankInterestRate") val bankInterestRate: kotlin.String? = null,
 
-    @Schema(example = "null", description = "")
-    @get:JsonProperty("Notes") val notes: kotlin.collections.List<kotlin.String>? = null,
+  @Schema(example = "null", description = "")
+  @get:JsonProperty("Notes") val notes: kotlin.collections.List<kotlin.String>? = null,
 
-    @field:Valid
-    @Schema(example = "null", description = "")
-    @get:JsonProperty("OtherBankInterestType") val otherBankInterestType: OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInnerOtherBankInterestType? = null,
+  @field:Valid
+  @Schema(example = "null", description = "")
+  @get:JsonProperty("OtherBankInterestType") val otherBankInterestType: OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInnerOtherBankInterestType? = null,
 
-    @field:Valid
-    @Schema(example = "null", description = "")
-    @get:JsonProperty("OtherApplicationFrequency") val otherApplicationFrequency: OBOtherCodeType11? = null,
+  @field:Valid
+  @Schema(example = "null", description = "")
+  @get:JsonProperty("OtherApplicationFrequency") val otherApplicationFrequency: OBOtherCodeType11? = null,
 
-    @field:Valid
-    @Schema(example = "null", description = "")
-    @get:JsonProperty("OtherCalculationFrequency") val otherCalculationFrequency: OBOtherCodeType12? = null
+  @field:Valid
+  @Schema(example = "null", description = "")
+  @get:JsonProperty("OtherCalculationFrequency") val otherCalculationFrequency: OBOtherCodeType12? = null,
 ) {
 
-    /**
-    * How often is interest applied to the Product for this tier/band i.e. how often the financial institution pays accumulated interest to the customer's account.
-    * Values: FQAT,FQDY,FQHY,FQMY,FQOT,FQQY,FQSD,FQWY,FQYY
-    */
-    enum class ApplicationFrequency(@get:JsonValue val value: kotlin.String) {
+  /**
+   * How often is interest applied to the Product for this tier/band i.e. how often the financial institution pays accumulated interest to the customer's account.
+   * Values: FQAT,FQDY,FQHY,FQMY,FQOT,FQQY,FQSD,FQWY,FQYY
+   */
+  enum class ApplicationFrequency(@get:JsonValue val value: kotlin.String) {
 
-        FQAT("FQAT"),
-        FQDY("FQDY"),
-        FQHY("FQHY"),
-        FQMY("FQMY"),
-        FQOT("FQOT"),
-        FQQY("FQQY"),
-        FQSD("FQSD"),
-        FQWY("FQWY"),
-        FQYY("FQYY");
+    FQAT("FQAT"),
+    FQDY("FQDY"),
+    FQHY("FQHY"),
+    FQMY("FQMY"),
+    FQOT("FQOT"),
+    FQQY("FQQY"),
+    FQSD("FQSD"),
+    FQWY("FQWY"),
+    FQYY("FQYY"),
+    ;
 
-        companion object {
-            @JvmStatic
-            @JsonCreator
-            fun forValue(value: kotlin.String): ApplicationFrequency {
-                return values().firstOrNull{it -> it.value == value}
-                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner'")
-            }
-        }
+    companion object {
+      @JvmStatic
+      @JsonCreator
+      fun forValue(value: kotlin.String): ApplicationFrequency = values().firstOrNull { it -> it.value == value }
+        ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner'")
     }
+  }
 
-    /**
-    * How often is credit interest calculated for the account.
-    * Values: FQAT,FQDY,FQHY,FQMY,FQOT,FQQY,FQSD,FQWY,FQYY
-    */
-    enum class CalculationFrequency(@get:JsonValue val value: kotlin.String) {
+  /**
+   * How often is credit interest calculated for the account.
+   * Values: FQAT,FQDY,FQHY,FQMY,FQOT,FQQY,FQSD,FQWY,FQYY
+   */
+  enum class CalculationFrequency(@get:JsonValue val value: kotlin.String) {
 
-        FQAT("FQAT"),
-        FQDY("FQDY"),
-        FQHY("FQHY"),
-        FQMY("FQMY"),
-        FQOT("FQOT"),
-        FQQY("FQQY"),
-        FQSD("FQSD"),
-        FQWY("FQWY"),
-        FQYY("FQYY");
+    FQAT("FQAT"),
+    FQDY("FQDY"),
+    FQHY("FQHY"),
+    FQMY("FQMY"),
+    FQOT("FQOT"),
+    FQQY("FQQY"),
+    FQSD("FQSD"),
+    FQWY("FQWY"),
+    FQYY("FQYY"),
+    ;
 
-        companion object {
-            @JvmStatic
-            @JsonCreator
-            fun forValue(value: kotlin.String): CalculationFrequency {
-                return values().firstOrNull{it -> it.value == value}
-                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner'")
-            }
-        }
+    companion object {
+      @JvmStatic
+      @JsonCreator
+      fun forValue(value: kotlin.String): CalculationFrequency = values().firstOrNull { it -> it.value == value }
+        ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner'")
     }
+  }
 
-    /**
-    * Amount on which Interest applied.
-    * Values: INBA,INTI,INWH
-    */
-    enum class DepositInterestAppliedCoverage(@get:JsonValue val value: kotlin.String) {
+  /**
+   * Amount on which Interest applied.
+   * Values: INBA,INTI,INWH
+   */
+  enum class DepositInterestAppliedCoverage(@get:JsonValue val value: kotlin.String) {
 
-        INBA("INBA"),
-        INTI("INTI"),
-        INWH("INWH");
+    INBA("INBA"),
+    INTI("INTI"),
+    INWH("INWH"),
+    ;
 
-        companion object {
-            @JvmStatic
-            @JsonCreator
-            fun forValue(value: kotlin.String): DepositInterestAppliedCoverage {
-                return values().firstOrNull{it -> it.value == value}
-                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner'")
-            }
-        }
+    companion object {
+      @JvmStatic
+      @JsonCreator
+      fun forValue(value: kotlin.String): DepositInterestAppliedCoverage = values().firstOrNull { it -> it.value == value }
+        ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner'")
     }
+  }
 
-    /**
-    * Interest rate types, other than AER, which financial institutions may use to describe the annual interest rate payable to the account holder's account.
-    * Values: INBB,INFR,INGR,INLR,INNE,INOT
-    */
-    enum class BankInterestRateType(@get:JsonValue val value: kotlin.String) {
+  /**
+   * Interest rate types, other than AER, which financial institutions may use to describe the annual interest rate payable to the account holder's account.
+   * Values: INBB,INFR,INGR,INLR,INNE,INOT
+   */
+  enum class BankInterestRateType(@get:JsonValue val value: kotlin.String) {
 
-        INBB("INBB"),
-        INFR("INFR"),
-        INGR("INGR"),
-        INLR("INLR"),
-        INNE("INNE"),
-        INOT("INOT");
+    INBB("INBB"),
+    INFR("INFR"),
+    INGR("INGR"),
+    INLR("INLR"),
+    INNE("INNE"),
+    INOT("INOT"),
+    ;
 
-        companion object {
-            @JvmStatic
-            @JsonCreator
-            fun forValue(value: kotlin.String): BankInterestRateType {
-                return values().firstOrNull{it -> it.value == value}
-                    ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner'")
-            }
-        }
+    companion object {
+      @JvmStatic
+      @JsonCreator
+      fun forValue(value: kotlin.String): BankInterestRateType = values().firstOrNull { it -> it.value == value }
+        ?: throw IllegalArgumentException("Unexpected value '$value' for enum 'OBReadProduct2DataProductInnerOtherProductTypeCreditInterestTierBandSetInnerTierBandInner'")
     }
-
+  }
 }
-
